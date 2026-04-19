@@ -202,11 +202,11 @@ cd Plugins/lowbar
 swift build -c release
 ```
 
-Requires Swift 5.9+ and the [ARO Plugin SDK](https://github.com/arolang/aro-plugin-sdk-swift).
+Requires Swift 6.2+, ARO 0.9.1+, and the [ARO Plugin SDK](https://github.com/arolang/aro-plugin-sdk-swift).
 
 ## Acknowledgments
 
-Lowbar is a clone of [Underscore.js](https://underscorejs.org) by Jeremy Ashkenas and the many contributors who have maintained it since 2009. The function names, semantics, and organization are modeled directly after underscore's API, adapted to ARO's declarative qualifier syntax. Thank you to the entire underscore.js community for creating one of the most influential utility libraries in programming history.
+Lowbar is a clone of [Underscore.js](https://underscorejs.org) by Jeremy Ashkenas and the many contributors who have maintained it since 2009. The function names, semantics, and organization are modeled directly after underscore's API, adapted to ARO's declarative qualifier syntax. Thank you to the underscore.js team for their outstanding work for the JavaScript community — Lowbar carries that spirit into the ARO community.
 
 ## License
 

@@ -7,7 +7,7 @@ description: >
   the beloved underscore.js library.
 author: ARO Community
 license: MIT
-aro-version: '>=0.1.0'
+aro-version: '>=0.9.1'
 
 provides:
   - type: swift-plugin

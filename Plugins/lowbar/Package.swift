@@ -1,9 +1,9 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.2
 import PackageDescription
 
 let package = Package(
     name: "lowbar",
-    platforms: [.macOS(.v12)],
+    platforms: [.macOS(.v15)],
     products: [
         .library(name: "lowbar", type: .dynamic, targets: ["lowbar"]),
     ],
