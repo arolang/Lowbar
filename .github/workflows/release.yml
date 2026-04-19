@@ -13,8 +13,8 @@ env:
   SWIFT_VERSION: '6.2'
 
 jobs:
-  test:
-    name: Test before release
+  build:
+    name: Build & Test
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
@@ -24,15 +24,15 @@ jobs:
         with:
           swift-version: ${{ env.SWIFT_VERSION }}
 
-      - name: Install ARO
-        run: |
-          brew tap arolang/aro
-          brew install aro
-
       - name: Build plugin
         run: |
           cd Plugins/lowbar
           swift build -c release
+
+      - name: Install ARO
+        run: |
+          brew tap arolang/aro
+          brew install aro
 
       - name: Run tests
         run: aro test .
@@ -40,7 +40,7 @@ jobs:
   release:
     name: Create Release
     runs-on: macos-15
-    needs: test
+    needs: build
     steps:
       - uses: actions/checkout@v4
 
@@ -76,7 +76,7 @@ jobs:
   pages:
     name: Deploy Website
     runs-on: ubuntu-latest
-    needs: test
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
