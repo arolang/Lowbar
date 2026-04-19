@@ -107,7 +107,7 @@ private func resolveNestedPath(_ dict: [String: Any], _ path: String) -> Any? {
     return current
 }
 
-private var _uniqueIdCounter = 0
+private nonisolated(unsafe) var _uniqueIdCounter = 0
 
 // MARK: - Plugin Registration
 
