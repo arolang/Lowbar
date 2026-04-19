@@ -1,0 +1,25 @@
+(* Tests for lowbar.join qualifier *)
+
+(join-comma-space: Lowbar Join Test) {
+    Create the <items> with ["alice", "bob", "eve"].
+    Compute the <result: lowbar.join> from the <items> with { separator: ", " }.
+    Then the <result> with "alice, bob, eve".
+}
+
+(join-default-comma: Lowbar Join Test) {
+    Create the <items> with ["a", "b", "c"].
+    Compute the <result: lowbar.join> from the <items>.
+    Then the <result> with "a,b,c".
+}
+
+(join-pipe: Lowbar Join Test) {
+    Create the <items> with ["x", "y", "z"].
+    Compute the <result: lowbar.join> from the <items> with { separator: " | " }.
+    Then the <result> with "x | y | z".
+}
+
+(join-single-element: Lowbar Join Test) {
+    Create the <items> with ["only"].
+    Compute the <result: lowbar.join> from the <items> with { separator: ", " }.
+    Then the <result> with "only".
+}

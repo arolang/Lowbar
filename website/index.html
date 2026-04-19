@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lowbar &mdash; Underscore.js for ARO</title>
+  <meta name="description" content="76 utility qualifiers and actions for the ARO language. Collections, objects, type checks, and generators inspired by underscore.js.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================================
+     Sidebar
+     ============================================================ -->
+<div id="sidebar">
+  <div class="logo">
+    <h1><a href="#">Lowbar</a></h1>
+    <p>Underscore.js for ARO<br>v1.0.0 &middot; 76 functions</p>
+  </div>
+  <nav>
+    <h3>Getting Started</h3>
+    <a href="#introduction">Introduction</a>
+    <a href="#installation">Installation</a>
+    <a href="#how-it-works">How It Works</a>
+
+    <h3>Collections</h3>
+    <a href="#first">first</a>
+    <a href="#initial">initial</a>
+    <a href="#last">last</a>
+    <a href="#rest">rest</a>
+    <a href="#compact">compact</a>
+    <a href="#flatten">flatten</a>
+    <a href="#uniq">uniq</a>
+    <a href="#shuffle">shuffle</a>
+    <a href="#sample">sample</a>
+    <a href="#size">size</a>
+    <a href="#reverse">reverse</a>
+    <a href="#to-array">to-array</a>
+
+    <h3>Searching</h3>
+    <a href="#where">where</a>
+    <a href="#find-where">find-where</a>
+    <a href="#reject-where">reject-where</a>
+    <a href="#contains">contains</a>
+    <a href="#every">every</a>
+    <a href="#some">some</a>
+    <a href="#index-of">index-of</a>
+    <a href="#last-index-of">last-index-of</a>
+    <a href="#sorted-index">sorted-index</a>
+    <a href="#find-index">find-index</a>
+    <a href="#find-last-index">find-last-index</a>
+
+    <h3>Grouping &amp; Sorting</h3>
+    <a href="#sort-by">sort-by</a>
+    <a href="#group-by">group-by</a>
+    <a href="#count-by">count-by</a>
+    <a href="#index-by">index-by</a>
+    <a href="#pluck">pluck</a>
+    <a href="#partition">partition</a>
+    <a href="#max">max</a>
+    <a href="#min">min</a>
+
+    <h3>Set Operations</h3>
+    <a href="#without">without</a>
+    <a href="#union">union</a>
+    <a href="#intersection">intersection</a>
+    <a href="#difference">difference</a>
+
+    <h3>Restructuring</h3>
+    <a href="#zip">zip</a>
+    <a href="#unzip">unzip</a>
+    <a href="#object">object</a>
+    <a href="#chunk">chunk</a>
+
+    <h3>Numeric</h3>
+    <a href="#sum">sum</a>
+    <a href="#avg">avg</a>
+    <a href="#reduce">reduce</a>
+
+    <h3>Objects</h3>
+    <a href="#keys">keys</a>
+    <a href="#values">values</a>
+    <a href="#pairs">pairs</a>
+    <a href="#invert">invert</a>
+    <a href="#pick">pick</a>
+    <a href="#omit">omit</a>
+    <a href="#defaults">defaults</a>
+    <a href="#extend">extend</a>
+    <a href="#clone">clone</a>
+    <a href="#has">has</a>
+    <a href="#get">get</a>
+    <a href="#find-key">find-key</a>
+    <a href="#map-object">map-object</a>
+    <a href="#is-match">is-match</a>
+
+    <h3>Type Checks</h3>
+    <a href="#is-empty">is-empty</a>
+    <a href="#is-array">is-array</a>
+    <a href="#is-string">is-string</a>
+    <a href="#is-number">is-number</a>
+    <a href="#is-boolean">is-boolean</a>
+    <a href="#is-object">is-object</a>
+    <a href="#is-null">is-null</a>
+    <a href="#is-finite">is-finite</a>
+    <a href="#is-equal">is-equal</a>
+
+    <h3>Utilities</h3>
+    <a href="#identity">identity</a>
+    <a href="#escape">escape</a>
+    <a href="#unescape">unescape</a>
+    <a href="#join">join</a>
+    <a href="#split">split</a>
+    <a href="#tap">tap</a>
+
+    <h3>Actions</h3>
+    <a href="#range">Range</a>
+    <a href="#random">Random</a>
+    <a href="#unique-id">UniqueId</a>
+    <a href="#now">Now</a>
+    <a href="#times">Times</a>
+  </nav>
+</div>
+
+<!-- ============================================================
+     Content
+     ============================================================ -->
+<div id="content">
+
+<!-- ---- Introduction ---- -->
+<h1 id="introduction">Lowbar</h1>
+<p class="tagline">
+  A comprehensive utility plugin for <a href="https://github.com/arolang/aro">ARO</a>,
+  inspired by the patterns of <a href="https://underscorejs.org">Underscore.js</a>.
+  76 qualifiers and actions for working with collections, objects, and values
+  &mdash; expressed in plain language, not callbacks.
+</p>
+
+<div class="badges">
+  <span class="badge">71 Qualifiers</span>
+  <span class="badge">5 Actions</span>
+  <span class="badge">Swift Plugin</span>
+  <span class="badge">v1.0.0</span>
+</div>
+
+<p>
+  ARO is a declarative language where operations read like business requirements.
+  Lowbar extends ARO's vocabulary with the utility functions you reach for every day
+  &mdash; filtering collections, reshaping objects, checking types, generating sequences &mdash;
+  all accessible through ARO's qualifier syntax.
+</p>
+
+<pre><code><span class="cmt">(* Find all active admins and extract their names *)</span>
+<span class="action">Create</span> the &lt;<span class="sym">users</span>&gt; with [
+    { name: <span class="str">"Alice"</span>, role: <span class="str">"admin"</span>, active: true },
+    { name: <span class="str">"Bob"</span>,   role: <span class="str">"user"</span>,  active: true },
+    { name: <span class="str">"Eve"</span>,   role: <span class="str">"admin"</span>, active: false }
+].
+
+<span class="action">Compute</span> the &lt;<span class="sym">active-admins</span>: <span class="qual">lowbar.where</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { role: <span class="str">"admin"</span>, active: true }.
+<span class="action">Compute</span> the &lt;<span class="sym">names</span>: <span class="qual">lowbar.pluck</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">active-admins</span>&gt; with { field: <span class="str">"name"</span> }.
+<span class="result">(* names = ["Alice"] *)</span></code></pre>
+
+
+<!-- ---- Installation ---- -->
+<h2 id="installation">Installation</h2>
+
+<p>
+  Copy the <code>Plugins/lowbar/</code> directory into your ARO application's
+  <code>Plugins/</code> folder. ARO discovers and compiles the plugin automatically
+  on first run.
+</p>
+
+<div class="install-block">
+<p>Your application should look like this:</p>
+<pre><code>MyApp/
+├── main.aro
+└── Plugins/
+    └── lowbar/
+        ├── plugin.yaml
+        ├── Package.swift
+        └── Sources/
+            └── LowbarPlugin.swift</code></pre>
+</div>
+
+<p>Requires Swift 5.9+ and the <a href="https://github.com/arolang/aro-plugin-sdk-swift">ARO Plugin SDK</a>.</p>
+
+
+<!-- ---- How It Works ---- -->
+<h2 id="how-it-works">How It Works</h2>
+
+<p>
+  Lowbar provides two kinds of tools: <strong>qualifiers</strong> that transform values inline,
+  and <strong>actions</strong> that generate new data.
+</p>
+
+<h3>Qualifiers</h3>
+<p>
+  Qualifiers transform a value using the <code>&lt;result: lowbar.qualifier&gt;</code> syntax.
+  They read naturally as part of an ARO statement:
+</p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">reversed</span>: <span class="qual">lowbar.reverse</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">items</span>&gt;.</code></pre>
+
+<p>Many qualifiers accept parameters through a <code>with { }</code> clause:</p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">top-three</span>: <span class="qual">lowbar.first</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">items</span>&gt; with { n: <span class="num">3</span> }.
+<span class="action">Compute</span> the &lt;<span class="sym">sorted</span>: <span class="qual">lowbar.sort-by</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { field: <span class="str">"age"</span> }.</code></pre>
+
+<p>Qualifiers also work inside expressions, applied directly to a variable:</p>
+<pre><code><span class="action">Log</span> &lt;<span class="sym">items</span>: <span class="qual">lowbar.reverse</span>&gt; to the &lt;<span class="sym">console</span>&gt;.</code></pre>
+
+<h3>Actions</h3>
+<p>
+  Actions are verb-based statements using the <code>Lowbar.</code> prefix (PascalCase handle):
+</p>
+<pre><code><span class="action">Lowbar.Range</span> the &lt;<span class="sym">numbers</span>&gt; with { stop: <span class="num">10</span> }.
+<span class="action">Lowbar.Random</span> the &lt;<span class="sym">dice</span>&gt; with { min: <span class="num">1</span>, max: <span class="num">6</span> }.</code></pre>
+
+
+<!-- ================================================================
+     COLLECTIONS
+     ================================================================ -->
+<h2 id="collections-section">Collections</h2>
+<p>
+  Functions for working with lists. These qualifiers let you slice, filter, reorder,
+  and reshape collections with a single statement.
+</p>
+
+
+<!-- first -->
+<h3 id="first"><code>first</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.first&gt; from the &lt;list&gt;.</div>
+  <p class="entry-desc">
+    Returns the first element of a list. Pass <code>n</code> to get the first N elements instead.
+    Useful for peeking at the head of a collection or taking a fixed-size prefix.
+  </p>
+<pre><code><span class="action">Create</span> the &lt;<span class="sym">items</span>&gt; with [<span class="num">5</span>, <span class="num">3</span>, <span class="num">8</span>, <span class="num">1</span>, <span class="num">9</span>].
+
+<span class="action">Compute</span> the &lt;<span class="sym">head</span>: <span class="qual">lowbar.first</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">items</span>&gt;.
+<span class="result">(* head = 5 *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">top-three</span>: <span class="qual">lowbar.first</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">items</span>&gt; with { n: <span class="num">3</span> }.
+<span class="result">(* top-three = [5, 3, 8] *)</span></code></pre>
+</div>
+
+
+<!-- initial -->
+<h3 id="initial"><code>initial</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.initial&gt; from the &lt;list&gt;.</div>
+  <p class="entry-desc">
+    Returns everything except the last element. Pass <code>n</code> to exclude the last N elements.
+    The complement of <code>last</code>.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">without-tail</span>: <span class="qual">lowbar.initial</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>].
+<span class="result">(* without-tail = [1, 2, 3, 4] *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">trimmed</span>: <span class="qual">lowbar.initial</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>] with { n: <span class="num">3</span> }.
+<span class="result">(* trimmed = [1, 2] *)</span></code></pre>
+</div>
+
+
+<!-- last -->
+<h3 id="last"><code>last</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.last&gt; from the &lt;list&gt;.</div>
+  <p class="entry-desc">
+    Returns the last element of a list. Pass <code>n</code> to get the last N elements.
+    The mirror of <code>first</code>.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">tail</span>: <span class="qual">lowbar.last</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>].
+<span class="result">(* tail = 5 *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">last-two</span>: <span class="qual">lowbar.last</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>] with { n: <span class="num">2</span> }.
+<span class="result">(* last-two = [4, 5] *)</span></code></pre>
+</div>
+
+
+<!-- rest -->
+<h3 id="rest"><code>rest</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.rest&gt; from the &lt;list&gt;.</div>
+  <p class="entry-desc">
+    Returns everything except the first element. Pass <code>n</code> to skip the first N elements.
+    The complement of <code>first</code>.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">remaining</span>: <span class="qual">lowbar.rest</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>].
+<span class="result">(* remaining = [2, 3, 4, 5] *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">after-third</span>: <span class="qual">lowbar.rest</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>] with { n: <span class="num">3</span> }.
+<span class="result">(* after-third = [4, 5] *)</span></code></pre>
+</div>
+
+
+<!-- compact -->
+<h3 id="compact"><code>compact</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.compact&gt; from the &lt;list&gt;.</div>
+  <p class="entry-desc">
+    Strips all falsy values from a list: <code>nil</code>, <code>false</code>,
+    <code>0</code>, and empty strings are removed. Everything else stays.
+    Handy for cleaning up data before processing.
+  </p>
+<pre><code><span class="action">Create</span> the &lt;<span class="sym">messy</span>&gt; with [<span class="num">0</span>, <span class="num">1</span>, <span class="str">""</span>, <span class="str">"hello"</span>, false, true, <span class="num">42</span>].
+<span class="action">Compute</span> the &lt;<span class="sym">clean</span>: <span class="qual">lowbar.compact</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">messy</span>&gt;.
+<span class="result">(* clean = [1, "hello", true, 42] *)</span></code></pre>
+</div>
+
+
+<!-- flatten -->
+<h3 id="flatten"><code>flatten</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.flatten&gt; from the &lt;list&gt;.</div>
+  <p class="entry-desc">
+    Flattens a nested list into a single level. Deep flattening is the default &mdash; all
+    nesting is unwound. Pass <code>deep: false</code> to flatten only one level.
+  </p>
+<pre><code><span class="action">Create</span> the &lt;<span class="sym">nested</span>&gt; with [[<span class="num">1</span>, <span class="num">2</span>], [<span class="num">3</span>, [<span class="num">4</span>, <span class="num">5</span>]], [<span class="num">6</span>]].
+
+<span class="action">Compute</span> the &lt;<span class="sym">flat</span>: <span class="qual">lowbar.flatten</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">nested</span>&gt;.
+<span class="result">(* flat = [1, 2, 3, 4, 5, 6] *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">shallow</span>: <span class="qual">lowbar.flatten</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">nested</span>&gt; with { deep: false }.
+<span class="result">(* shallow = [1, 2, 3, [4, 5], 6] *)</span></code></pre>
+</div>
+
+
+<!-- uniq -->
+<h3 id="uniq"><code>uniq</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.uniq&gt; from the &lt;list&gt;.</div>
+  <p class="entry-desc">
+    Removes duplicate values, preserving first-seen order. For lists of objects,
+    pass <code>field</code> to deduplicate by a specific property.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">unique</span>: <span class="qual">lowbar.uniq</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">3</span>, <span class="num">3</span>].
+<span class="result">(* unique = [1, 2, 3] *)</span>
+
+<span class="action">Create</span> the &lt;<span class="sym">records</span>&gt; with [
+    { id: <span class="num">1</span>, role: <span class="str">"admin"</span> },
+    { id: <span class="num">2</span>, role: <span class="str">"user"</span> },
+    { id: <span class="num">3</span>, role: <span class="str">"admin"</span> }
+].
+<span class="action">Compute</span> the &lt;<span class="sym">by-role</span>: <span class="qual">lowbar.uniq</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">records</span>&gt; with { field: <span class="str">"role"</span> }.
+<span class="result">(* by-role = [{id: 1, role: "admin"}, {id: 2, role: "user"}] *)</span></code></pre>
+</div>
+
+
+<!-- shuffle -->
+<h3 id="shuffle"><code>shuffle</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.shuffle&gt; from the &lt;list&gt;.</div>
+  <p class="entry-desc">
+    Returns a randomly reordered copy using the Fisher-Yates algorithm. Also works on
+    strings, shuffling individual characters.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">shuffled</span>: <span class="qual">lowbar.shuffle</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>].
+<span class="result">(* shuffled = [3, 1, 5, 2, 4]  (random) *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">anagram</span>: <span class="qual">lowbar.shuffle</span>&gt; <span class="prep">from</span> <span class="str">"hello"</span>.
+<span class="result">(* anagram = "lhoel"  (random) *)</span></code></pre>
+</div>
+
+
+<!-- sample -->
+<h3 id="sample"><code>sample</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.sample&gt; from the &lt;list&gt;.</div>
+  <p class="entry-desc">
+    Draws a random element from the list. Pass <code>n</code> to draw multiple
+    elements without replacement.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">winner</span>: <span class="qual">lowbar.sample</span>&gt; <span class="prep">from</span> [<span class="str">"alice"</span>, <span class="str">"bob"</span>, <span class="str">"eve"</span>].
+<span class="result">(* winner = "bob"  (random) *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">team</span>: <span class="qual">lowbar.sample</span>&gt; <span class="prep">from</span> [<span class="str">"alice"</span>, <span class="str">"bob"</span>, <span class="str">"eve"</span>] with { n: <span class="num">2</span> }.
+<span class="result">(* team = ["eve", "alice"]  (random) *)</span></code></pre>
+</div>
+
+
+<!-- size -->
+<h3 id="size"><code>size</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.size&gt; from the &lt;value&gt;.</div>
+  <p class="entry-desc">
+    Returns the number of elements in a list, characters in a string, or keys in an object.
+    A universal length check.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">count</span>: <span class="qual">lowbar.size</span>&gt; <span class="prep">from</span> [<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>].
+<span class="result">(* count = 3 *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">len</span>: <span class="qual">lowbar.size</span>&gt; <span class="prep">from</span> <span class="str">"hello"</span>.
+<span class="result">(* len = 5 *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">fields</span>: <span class="qual">lowbar.size</span>&gt; <span class="prep">from</span> { host: <span class="str">"localhost"</span>, port: <span class="num">8080</span> }.
+<span class="result">(* fields = 2 *)</span></code></pre>
+</div>
+
+
+<!-- reverse -->
+<h3 id="reverse"><code>reverse</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.reverse&gt; from the &lt;value&gt;.</div>
+  <p class="entry-desc">
+    Reverses the order of elements in a list, or characters in a string.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">backwards</span>: <span class="qual">lowbar.reverse</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>].
+<span class="result">(* backwards = [3, 2, 1] *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">flipped</span>: <span class="qual">lowbar.reverse</span>&gt; <span class="prep">from</span> <span class="str">"ARO"</span>.
+<span class="result">(* flipped = "ORA" *)</span></code></pre>
+</div>
+
+
+<!-- to-array -->
+<h3 id="to-array"><code>to-array</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.to-array&gt; from the &lt;value&gt;.</div>
+  <p class="entry-desc">
+    Converts a value to a list. Strings become character arrays, objects become their values.
+    Lists pass through unchanged.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">chars</span>: <span class="qual">lowbar.to-array</span>&gt; <span class="prep">from</span> <span class="str">"Hi"</span>.
+<span class="result">(* chars = ["H", "i"] *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">vals</span>: <span class="qual">lowbar.to-array</span>&gt; <span class="prep">from</span> { a: <span class="num">1</span>, b: <span class="num">2</span> }.
+<span class="result">(* vals = [1, 2] *)</span></code></pre>
+</div>
+
+
+<!-- ================================================================
+     SEARCHING
+     ================================================================ -->
+<h2 id="searching-section">Searching</h2>
+<p>
+  Find elements by matching properties, check membership, and locate positions.
+  Instead of callback predicates, Lowbar matches against the properties you provide in the
+  <code>with { }</code> clause.
+</p>
+
+
+<!-- where -->
+<h3 id="where"><code>where</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.where&gt; from the &lt;list&gt; with { key: value, ... }.</div>
+  <p class="entry-desc">
+    Filters a list of objects, keeping only those whose properties match every
+    key-value pair in the <code>with</code> clause. The declarative alternative to writing
+    filter callbacks.
+  </p>
+<pre><code><span class="action">Create</span> the &lt;<span class="sym">users</span>&gt; with [
+    { name: <span class="str">"Alice"</span>, role: <span class="str">"admin"</span>, active: true },
+    { name: <span class="str">"Bob"</span>,   role: <span class="str">"user"</span>,  active: true },
+    { name: <span class="str">"Eve"</span>,   role: <span class="str">"admin"</span>, active: false }
+].
+
+<span class="action">Compute</span> the &lt;<span class="sym">admins</span>: <span class="qual">lowbar.where</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { role: <span class="str">"admin"</span> }.
+<span class="result">(* admins = [{name: "Alice", ...}, {name: "Eve", ...}] *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">active-admins</span>: <span class="qual">lowbar.where</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { role: <span class="str">"admin"</span>, active: true }.
+<span class="result">(* active-admins = [{name: "Alice", ...}] *)</span></code></pre>
+</div>
+
+
+<!-- find-where -->
+<h3 id="find-where"><code>find-where</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.find-where&gt; from the &lt;list&gt; with { key: value }.</div>
+  <p class="entry-desc">
+    Returns the <em>first</em> object in the list that matches all given properties.
+    When you only need one match, this is faster and more direct than <code>where</code>.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">first-admin</span>: <span class="qual">lowbar.find-where</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { role: <span class="str">"admin"</span> }.
+<span class="result">(* first-admin = {name: "Alice", role: "admin", active: true} *)</span></code></pre>
+</div>
+
+
+<!-- reject-where -->
+<h3 id="reject-where"><code>reject-where</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.reject-where&gt; from the &lt;list&gt; with { key: value }.</div>
+  <p class="entry-desc">
+    The inverse of <code>where</code>. Returns every object that does <em>not</em> match
+    the given properties.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">non-admins</span>: <span class="qual">lowbar.reject-where</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { role: <span class="str">"admin"</span> }.
+<span class="result">(* non-admins = [{name: "Bob", role: "user", active: true}] *)</span></code></pre>
+</div>
+
+
+<!-- contains -->
+<h3 id="contains"><code>contains</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.contains&gt; from the &lt;list&gt; with { value: x }.</div>
+  <p class="entry-desc">
+    Returns <code>true</code> if the given value is present in the list.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">has-it</span>: <span class="qual">lowbar.contains</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>] with { value: <span class="num">2</span> }.
+<span class="result">(* has-it = true *)</span></code></pre>
+</div>
+
+
+<!-- every -->
+<h3 id="every"><code>every</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.every&gt; from the &lt;list&gt; with { key: value }.</div>
+  <p class="entry-desc">
+    Returns <code>true</code> if <em>every</em> object in the list matches the given properties.
+    Without properties, checks that all values are truthy.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">all-active</span>: <span class="qual">lowbar.every</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { active: true }.
+<span class="result">(* all-active = false *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">all-truthy</span>: <span class="qual">lowbar.every</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>].
+<span class="result">(* all-truthy = true *)</span></code></pre>
+</div>
+
+
+<!-- some -->
+<h3 id="some"><code>some</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.some&gt; from the &lt;list&gt; with { key: value }.</div>
+  <p class="entry-desc">
+    Returns <code>true</code> if <em>any</em> object in the list matches the given properties.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">has-admin</span>: <span class="qual">lowbar.some</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { role: <span class="str">"admin"</span> }.
+<span class="result">(* has-admin = true *)</span></code></pre>
+</div>
+
+
+<!-- index-of -->
+<h3 id="index-of"><code>index-of</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.index-of&gt; from the &lt;list&gt; with { value: x }.</div>
+  <p class="entry-desc">
+    Returns the position of the first occurrence of a value, or <code>-1</code> if not found.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">pos</span>: <span class="qual">lowbar.index-of</span>&gt; <span class="prep">from</span> [<span class="str">"a"</span>, <span class="str">"b"</span>, <span class="str">"c"</span>, <span class="str">"b"</span>] with { value: <span class="str">"b"</span> }.
+<span class="result">(* pos = 1 *)</span></code></pre>
+</div>
+
+
+<!-- last-index-of -->
+<h3 id="last-index-of"><code>last-index-of</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.last-index-of&gt; from the &lt;list&gt; with { value: x }.</div>
+  <p class="entry-desc">
+    Returns the position of the <em>last</em> occurrence of a value, or <code>-1</code>.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">pos</span>: <span class="qual">lowbar.last-index-of</span>&gt; <span class="prep">from</span> [<span class="str">"a"</span>, <span class="str">"b"</span>, <span class="str">"c"</span>, <span class="str">"b"</span>] with { value: <span class="str">"b"</span> }.
+<span class="result">(* pos = 3 *)</span></code></pre>
+</div>
+
+
+<!-- sorted-index -->
+<h3 id="sorted-index"><code>sorted-index</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.sorted-index&gt; from the &lt;sorted-list&gt; with { value: x }.</div>
+  <p class="entry-desc">
+    Determines the index at which a value should be inserted into an already-sorted
+    list to maintain sort order.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">idx</span>: <span class="qual">lowbar.sorted-index</span>&gt; <span class="prep">from</span> [<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>, <span class="num">40</span>] with { value: <span class="num">25</span> }.
+<span class="result">(* idx = 2 *)</span></code></pre>
+</div>
+
+
+<!-- find-index -->
+<h3 id="find-index"><code>find-index</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.find-index&gt; from the &lt;list&gt; with { key: value }.</div>
+  <p class="entry-desc">
+    Returns the index of the first object matching the given properties, or <code>-1</code>.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">idx</span>: <span class="qual">lowbar.find-index</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { role: <span class="str">"admin"</span> }.
+<span class="result">(* idx = 0 *)</span></code></pre>
+</div>
+
+
+<!-- find-last-index -->
+<h3 id="find-last-index"><code>find-last-index</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.find-last-index&gt; from the &lt;list&gt; with { key: value }.</div>
+  <p class="entry-desc">
+    Like <code>find-index</code>, but searches from the end, returning the last matching position.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">idx</span>: <span class="qual">lowbar.find-last-index</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { role: <span class="str">"admin"</span> }.
+<span class="result">(* idx = 2  (Eve is the last admin) *)</span></code></pre>
+</div>
+
+
+<!-- ================================================================
+     GROUPING & SORTING
+     ================================================================ -->
+<h2 id="grouping-section">Grouping &amp; Sorting</h2>
+<p>
+  Organize, rank, and restructure collections by field values. These qualifiers
+  take a <code>field</code> parameter to know which property to operate on.
+</p>
+
+
+<!-- sort-by -->
+<h3 id="sort-by"><code>sort-by</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.sort-by&gt; from the &lt;list&gt; with { field: "..." }.</div>
+  <p class="entry-desc">
+    Returns a stably sorted copy of the list, ordered by the given field. Numeric fields
+    are compared numerically. Pass <code>order: "desc"</code> for descending order.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">by-age</span>: <span class="qual">lowbar.sort-by</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { field: <span class="str">"age"</span> }.
+<span class="action">Compute</span> the &lt;<span class="sym">names</span>: <span class="qual">lowbar.pluck</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">by-age</span>&gt; with { field: <span class="str">"name"</span> }.
+<span class="result">(* names = ["Eve", "Bob", "Alice"] *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">oldest-first</span>: <span class="qual">lowbar.sort-by</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { field: <span class="str">"age"</span>, order: <span class="str">"desc"</span> }.
+<span class="result">(* Alice (30) first, then Bob (25), then Eve (22) *)</span></code></pre>
+</div>
+
+
+<!-- group-by -->
+<h3 id="group-by"><code>group-by</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.group-by&gt; from the &lt;list&gt; with { field: "..." }.</div>
+  <p class="entry-desc">
+    Splits a list into groups based on a field value. Returns an object where each key
+    is a field value and each value is the list of matching items.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">by-role</span>: <span class="qual">lowbar.group-by</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { field: <span class="str">"role"</span> }.
+<span class="result">(* by-role = { "admin": [{Alice}, {Eve}], "user": [{Bob}] } *)</span></code></pre>
+</div>
+
+
+<!-- count-by -->
+<h3 id="count-by"><code>count-by</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.count-by&gt; from the &lt;list&gt; with { field: "..." }.</div>
+  <p class="entry-desc">
+    Like <code>group-by</code>, but returns the count per group instead of the items.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">counts</span>: <span class="qual">lowbar.count-by</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { field: <span class="str">"role"</span> }.
+<span class="result">(* counts = { "admin": 2, "user": 1 } *)</span></code></pre>
+</div>
+
+
+<!-- index-by -->
+<h3 id="index-by"><code>index-by</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.index-by&gt; from the &lt;list&gt; with { field: "..." }.</div>
+  <p class="entry-desc">
+    Creates a lookup object keyed by a unique field. Each value is the full object.
+    Ideal for building dictionaries from lists.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">lookup</span>: <span class="qual">lowbar.index-by</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { field: <span class="str">"name"</span> }.
+<span class="result">(* lookup = { "Alice": {name: "Alice", ...}, "Bob": {name: "Bob", ...}, ... } *)</span></code></pre>
+</div>
+
+
+<!-- pluck -->
+<h3 id="pluck"><code>pluck</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.pluck&gt; from the &lt;list&gt; with { field: "..." }.</div>
+  <p class="entry-desc">
+    Extracts a single property from every object in the list. A concise shorthand
+    for the most common projection operation.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">names</span>: <span class="qual">lowbar.pluck</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { field: <span class="str">"name"</span> }.
+<span class="result">(* names = ["Alice", "Bob", "Eve"] *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">ages</span>: <span class="qual">lowbar.pluck</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { field: <span class="str">"age"</span> }.
+<span class="result">(* ages = [30, 25, 22] *)</span></code></pre>
+</div>
+
+
+<!-- partition -->
+<h3 id="partition"><code>partition</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.partition&gt; from the &lt;list&gt; with { key: value }.</div>
+  <p class="entry-desc">
+    Splits a list into two: items that match the given properties, and items that don't.
+    Returns <code>[matching, non-matching]</code>.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">split</span>: <span class="qual">lowbar.partition</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { active: true }.
+<span class="result">(* split = [[{Alice}, {Bob}], [{Eve}]] *)</span></code></pre>
+</div>
+
+
+<!-- max -->
+<h3 id="max"><code>max</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.max&gt; from the &lt;list&gt;.</div>
+  <p class="entry-desc">
+    Returns the maximum value in a list. For objects, pass <code>field</code> to compare
+    by a specific property &mdash; the full object is returned, not just the field value.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">biggest</span>: <span class="qual">lowbar.max</span>&gt; <span class="prep">from</span> [<span class="num">5</span>, <span class="num">3</span>, <span class="num">8</span>, <span class="num">1</span>].
+<span class="result">(* biggest = 8 *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">oldest</span>: <span class="qual">lowbar.max</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { field: <span class="str">"age"</span> }.
+<span class="result">(* oldest = {name: "Alice", age: 30, ...} *)</span></code></pre>
+</div>
+
+
+<!-- min -->
+<h3 id="min"><code>min</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.min&gt; from the &lt;list&gt;.</div>
+  <p class="entry-desc">
+    Returns the minimum value. Like <code>max</code>, accepts an optional <code>field</code>.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">youngest</span>: <span class="qual">lowbar.min</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">users</span>&gt; with { field: <span class="str">"age"</span> }.
+<span class="result">(* youngest = {name: "Eve", age: 22, ...} *)</span></code></pre>
+</div>
+
+
+<!-- ================================================================
+     SET OPERATIONS
+     ================================================================ -->
+<h2 id="sets-section">Set Operations</h2>
+<p>
+  Combine and compare lists using set semantics. Pass the second list
+  via the <code>with { }</code> clause.
+</p>
+
+
+<!-- without -->
+<h3 id="without"><code>without</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.without&gt; from the &lt;list&gt; with { values: [...] }.</div>
+  <p class="entry-desc">
+    Returns a copy of the list with all specified values removed.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">filtered</span>: <span class="qual">lowbar.without</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>] with { values: [<span class="num">2</span>, <span class="num">4</span>] }.
+<span class="result">(* filtered = [1, 3, 5] *)</span></code></pre>
+</div>
+
+
+<!-- union -->
+<h3 id="union"><code>union</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.union&gt; from the &lt;list&gt; with { other: [...] }.</div>
+  <p class="entry-desc">
+    Combines two lists, keeping only unique values. Items from both lists appear in the result,
+    but no duplicates.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">all</span>: <span class="qual">lowbar.union</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>] with { other: [<span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>] }.
+<span class="result">(* all = [1, 2, 3, 4, 5] *)</span></code></pre>
+</div>
+
+
+<!-- intersection -->
+<h3 id="intersection"><code>intersection</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.intersection&gt; from the &lt;list&gt; with { other: [...] }.</div>
+  <p class="entry-desc">
+    Returns only the values present in <em>both</em> lists.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">common</span>: <span class="qual">lowbar.intersection</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>] with { other: [<span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>] }.
+<span class="result">(* common = [3, 4] *)</span></code></pre>
+</div>
+
+
+<!-- difference -->
+<h3 id="difference"><code>difference</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.difference&gt; from the &lt;list&gt; with { other: [...] }.</div>
+  <p class="entry-desc">
+    Returns values that exist in the first list but not the second.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">only-mine</span>: <span class="qual">lowbar.difference</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>] with { other: [<span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>] }.
+<span class="result">(* only-mine = [1, 2] *)</span></code></pre>
+</div>
+
+
+<!-- ================================================================
+     RESTRUCTURING
+     ================================================================ -->
+<h2 id="restructuring-section">Restructuring</h2>
+<p>
+  Change the shape of your data &mdash; merge columns, split into pages, or convert
+  between lists and objects.
+</p>
+
+
+<!-- zip -->
+<h3 id="zip"><code>zip</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.zip&gt; from the &lt;list&gt; with { other: [...] }.</div>
+  <p class="entry-desc">
+    Merges two lists by pairing elements at corresponding positions.
+    Produces a list of two-element arrays.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">pairs</span>: <span class="qual">lowbar.zip</span>&gt; <span class="prep">from</span> [<span class="str">"a"</span>, <span class="str">"b"</span>, <span class="str">"c"</span>] with { other: [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>] }.
+<span class="result">(* pairs = [["a", 1], ["b", 2], ["c", 3]] *)</span></code></pre>
+</div>
+
+
+<!-- unzip -->
+<h3 id="unzip"><code>unzip</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.unzip&gt; from the &lt;list-of-pairs&gt;.</div>
+  <p class="entry-desc">
+    The inverse of <code>zip</code>. Transposes a list of pairs into two separate lists.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">cols</span>: <span class="qual">lowbar.unzip</span>&gt; <span class="prep">from</span> [[<span class="str">"a"</span>, <span class="num">1</span>], [<span class="str">"b"</span>, <span class="num">2</span>], [<span class="str">"c"</span>, <span class="num">3</span>]].
+<span class="result">(* cols = [["a", "b", "c"], [1, 2, 3]] *)</span></code></pre>
+</div>
+
+
+<!-- object -->
+<h3 id="object"><code>object</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.object&gt; from the &lt;list-of-pairs&gt;.</div>
+  <p class="entry-desc">
+    Converts a list of <code>[key, value]</code> pairs into an object. The reverse of <code>pairs</code>.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">obj</span>: <span class="qual">lowbar.object</span>&gt; <span class="prep">from</span> [[<span class="str">"name"</span>, <span class="str">"Alice"</span>], [<span class="str">"age"</span>, <span class="num">30</span>]].
+<span class="result">(* obj = { name: "Alice", age: 30 } *)</span></code></pre>
+</div>
+
+
+<!-- chunk -->
+<h3 id="chunk"><code>chunk</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.chunk&gt; from the &lt;list&gt; with { size: N }.</div>
+  <p class="entry-desc">
+    Splits a list into groups of the given size. The last chunk may be smaller if
+    the list doesn't divide evenly. Useful for pagination and batch processing.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">pages</span>: <span class="qual">lowbar.chunk</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>, <span class="num">7</span>] with { size: <span class="num">3</span> }.
+<span class="result">(* pages = [[1, 2, 3], [4, 5, 6], [7]] *)</span></code></pre>
+</div>
+
+
+<!-- ================================================================
+     NUMERIC
+     ================================================================ -->
+<h2 id="numeric-section">Numeric</h2>
+<p>
+  Aggregate numeric values in a list.
+</p>
+
+
+<!-- sum -->
+<h3 id="sum"><code>sum</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.sum&gt; from the &lt;list&gt;.</div>
+  <p class="entry-desc">
+    Adds up all numeric values. Non-numeric values are ignored.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">total</span>: <span class="qual">lowbar.sum</span>&gt; <span class="prep">from</span> [<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>].
+<span class="result">(* total = 60 *)</span></code></pre>
+</div>
+
+
+<!-- avg -->
+<h3 id="avg"><code>avg</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.avg&gt; from the &lt;list&gt;.</div>
+  <p class="entry-desc">
+    Calculates the arithmetic mean of all numeric values.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">mean</span>: <span class="qual">lowbar.avg</span>&gt; <span class="prep">from</span> [<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>].
+<span class="result">(* mean = 20.0 *)</span></code></pre>
+</div>
+
+
+<!-- reduce -->
+<h3 id="reduce"><code>reduce</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.reduce&gt; from the &lt;list&gt; with { op: "..." }.</div>
+  <p class="entry-desc">
+    Folds a list down to a single value using a built-in operation.
+    Supports <code>"+"</code> (sum), <code>"*"</code> (product), and <code>"join"</code> (string concatenation).
+    For <code>"join"</code>, pass an optional <code>separator</code>.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">total</span>: <span class="qual">lowbar.reduce</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>] with { op: <span class="str">"+"</span> }.
+<span class="result">(* total = 10 *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">product</span>: <span class="qual">lowbar.reduce</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>] with { op: <span class="str">"*"</span> }.
+<span class="result">(* product = 120 *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">sentence</span>: <span class="qual">lowbar.reduce</span>&gt; <span class="prep">from</span> [<span class="str">"hello"</span>, <span class="str">"world"</span>] with { op: <span class="str">"join"</span>, separator: <span class="str">" "</span> }.
+<span class="result">(* sentence = "hello world" *)</span></code></pre>
+</div>
+
+
+<!-- ================================================================
+     OBJECTS
+     ================================================================ -->
+<h2 id="objects-section">Objects</h2>
+<p>
+  Inspect, reshape, and merge objects. These qualifiers work on key-value structures.
+</p>
+
+
+<!-- keys -->
+<h3 id="keys"><code>keys</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.keys&gt; from the &lt;object&gt;.</div>
+  <p class="entry-desc">Returns all keys of an object as a sorted list.</p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">k</span>: <span class="qual">lowbar.keys</span>&gt; <span class="prep">from</span> { host: <span class="str">"localhost"</span>, port: <span class="num">8080</span> }.
+<span class="result">(* k = ["host", "port"] *)</span></code></pre>
+</div>
+
+
+<!-- values -->
+<h3 id="values"><code>values</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.values&gt; from the &lt;object&gt;.</div>
+  <p class="entry-desc">Returns all values of an object as a list.</p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">v</span>: <span class="qual">lowbar.values</span>&gt; <span class="prep">from</span> { host: <span class="str">"localhost"</span>, port: <span class="num">8080</span> }.
+<span class="result">(* v = ["localhost", 8080] *)</span></code></pre>
+</div>
+
+
+<!-- pairs -->
+<h3 id="pairs"><code>pairs</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.pairs&gt; from the &lt;object&gt;.</div>
+  <p class="entry-desc">
+    Converts an object into a list of <code>[key, value]</code> pairs. The inverse of <code>object</code>.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">entries</span>: <span class="qual">lowbar.pairs</span>&gt; <span class="prep">from</span> { a: <span class="num">1</span>, b: <span class="num">2</span> }.
+<span class="result">(* entries = [["a", 1], ["b", 2]] *)</span></code></pre>
+</div>
+
+
+<!-- invert -->
+<h3 id="invert"><code>invert</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.invert&gt; from the &lt;object&gt;.</div>
+  <p class="entry-desc">Swaps keys and values. Values become keys, keys become values.</p>
+<pre><code><span class="action">Create</span> the &lt;<span class="sym">colors</span>&gt; with { red: <span class="str">"#ff0000"</span>, green: <span class="str">"#00ff00"</span> }.
+<span class="action">Compute</span> the &lt;<span class="sym">lookup</span>: <span class="qual">lowbar.invert</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">colors</span>&gt;.
+<span class="result">(* lookup = { "#ff0000": "red", "#00ff00": "green" } *)</span></code></pre>
+</div>
+
+
+<!-- pick -->
+<h3 id="pick"><code>pick</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.pick&gt; from the &lt;object&gt; with { keys: [...] }.</div>
+  <p class="entry-desc">
+    Returns a copy of the object containing only the listed keys. The allow-list approach
+    to object filtering.
+  </p>
+<pre><code><span class="action">Create</span> the &lt;<span class="sym">user</span>&gt; with { name: <span class="str">"Alice"</span>, email: <span class="str">"a@b.com"</span>, password: <span class="str">"secret"</span> }.
+<span class="action">Compute</span> the &lt;<span class="sym">public</span>: <span class="qual">lowbar.pick</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">user</span>&gt; with { keys: [<span class="str">"name"</span>, <span class="str">"email"</span>] }.
+<span class="result">(* public = { name: "Alice", email: "a@b.com" } *)</span></code></pre>
+</div>
+
+
+<!-- omit -->
+<h3 id="omit"><code>omit</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.omit&gt; from the &lt;object&gt; with { keys: [...] }.</div>
+  <p class="entry-desc">
+    Returns a copy without the listed keys. The deny-list counterpart to <code>pick</code>.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">safe</span>: <span class="qual">lowbar.omit</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">user</span>&gt; with { keys: [<span class="str">"password"</span>] }.
+<span class="result">(* safe = { name: "Alice", email: "a@b.com" } *)</span></code></pre>
+</div>
+
+
+<!-- defaults -->
+<h3 id="defaults"><code>defaults</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.defaults&gt; from the &lt;object&gt; with { key: value, ... }.</div>
+  <p class="entry-desc">
+    Fills in missing properties with default values. Existing properties are never overwritten.
+    The safe way to ensure an object has all required fields.
+  </p>
+<pre><code><span class="action">Create</span> the &lt;<span class="sym">config</span>&gt; with { host: <span class="str">"localhost"</span> }.
+<span class="action">Compute</span> the &lt;<span class="sym">full</span>: <span class="qual">lowbar.defaults</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">config</span>&gt; with { host: <span class="str">"0.0.0.0"</span>, port: <span class="num">8080</span>, debug: false }.
+<span class="result">(* full = { host: "localhost", port: 8080, debug: false } *)</span>
+<span class="cmt">(* Note: host kept its original value *)</span></code></pre>
+</div>
+
+
+<!-- extend -->
+<h3 id="extend"><code>extend</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.extend&gt; from the &lt;object&gt; with { key: value, ... }.</div>
+  <p class="entry-desc">
+    Merges the <code>with</code> properties into the object, overwriting any existing keys.
+    The forceful cousin of <code>defaults</code>.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">updated</span>: <span class="qual">lowbar.extend</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">config</span>&gt; with { port: <span class="num">9090</span>, debug: true }.
+<span class="result">(* updated = { host: "localhost", port: 9090, debug: true } *)</span></code></pre>
+</div>
+
+
+<!-- clone -->
+<h3 id="clone"><code>clone</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.clone&gt; from the &lt;value&gt;.</div>
+  <p class="entry-desc">Creates a shallow copy of an object or list.</p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">copy</span>: <span class="qual">lowbar.clone</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">config</span>&gt;.
+<span class="result">(* copy = { host: "localhost" }  (independent copy) *)</span></code></pre>
+</div>
+
+
+<!-- has -->
+<h3 id="has"><code>has</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.has&gt; from the &lt;object&gt; with { key: "..." }.</div>
+  <p class="entry-desc">
+    Checks whether an object contains a specific key. Returns a boolean.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">exists</span>: <span class="qual">lowbar.has</span>&gt; <span class="prep">from</span> { name: <span class="str">"Alice"</span> } with { key: <span class="str">"name"</span> }.
+<span class="result">(* exists = true *)</span></code></pre>
+</div>
+
+
+<!-- get -->
+<h3 id="get"><code>get</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.get&gt; from the &lt;object&gt; with { path: "..." }.</div>
+  <p class="entry-desc">
+    Retrieves a value at a nested dot-separated path. Supports an optional <code>default</code>
+    value when the path doesn't resolve.
+  </p>
+<pre><code><span class="action">Create</span> the &lt;<span class="sym">data</span>&gt; with { user: { address: { city: <span class="str">"Portland"</span> } } }.
+
+<span class="action">Compute</span> the &lt;<span class="sym">city</span>: <span class="qual">lowbar.get</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">data</span>&gt; with { path: <span class="str">"user.address.city"</span> }.
+<span class="result">(* city = "Portland" *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">phone</span>: <span class="qual">lowbar.get</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">data</span>&gt; with { path: <span class="str">"user.phone"</span>, default: <span class="str">"N/A"</span> }.
+<span class="result">(* phone = "N/A" *)</span></code></pre>
+</div>
+
+
+<!-- find-key -->
+<h3 id="find-key"><code>find-key</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.find-key&gt; from the &lt;object&gt; with { value: x }.</div>
+  <p class="entry-desc">
+    Returns the first key whose value matches. The reverse lookup.
+  </p>
+<pre><code><span class="action">Create</span> the &lt;<span class="sym">codes</span>&gt; with { red: <span class="str">"#ff0000"</span>, green: <span class="str">"#00ff00"</span> }.
+<span class="action">Compute</span> the &lt;<span class="sym">name</span>: <span class="qual">lowbar.find-key</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">codes</span>&gt; with { value: <span class="str">"#ff0000"</span> }.
+<span class="result">(* name = "red" *)</span></code></pre>
+</div>
+
+
+<!-- map-object -->
+<h3 id="map-object"><code>map-object</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.map-object&gt; from the &lt;object&gt; with { from: "...", to: "..." }.</div>
+  <p class="entry-desc">
+    Renames keys in an object. Use <code>from</code>/<code>to</code> for a single rename,
+    or <code>map</code> for bulk renaming.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">renamed</span>: <span class="qual">lowbar.map-object</span>&gt; <span class="prep">from</span> { first_name: <span class="str">"Alice"</span> } with { from: <span class="str">"first_name"</span>, to: <span class="str">"name"</span> }.
+<span class="result">(* renamed = { name: "Alice" } *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">mapped</span>: <span class="qual">lowbar.map-object</span>&gt; <span class="prep">from</span> { a: <span class="num">1</span>, b: <span class="num">2</span> } with { map: { a: <span class="str">"x"</span>, b: <span class="str">"y"</span> } }.
+<span class="result">(* mapped = { x: 1, y: 2 } *)</span></code></pre>
+</div>
+
+
+<!-- is-match -->
+<h3 id="is-match"><code>is-match</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.is-match&gt; from the &lt;object&gt; with { key: value, ... }.</div>
+  <p class="entry-desc">
+    Returns <code>true</code> if the object contains all the given key-value pairs.
+    A subset check for objects.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">match</span>: <span class="qual">lowbar.is-match</span>&gt; <span class="prep">from</span> { name: <span class="str">"Alice"</span>, role: <span class="str">"admin"</span> } with { role: <span class="str">"admin"</span> }.
+<span class="result">(* match = true *)</span></code></pre>
+</div>
+
+
+<!-- ================================================================
+     TYPE CHECKS
+     ================================================================ -->
+<h2 id="types-section">Type Checks</h2>
+<p>
+  Inspect the type of any value. Each returns a boolean.
+</p>
+
+
+<!-- is-empty -->
+<h3 id="is-empty"><code>is-empty</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.is-empty&gt; from the &lt;value&gt;.</div>
+  <p class="entry-desc">
+    Returns <code>true</code> for empty lists, empty strings, empty objects, and nil.
+    Everything else is considered non-empty.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">a</span>: <span class="qual">lowbar.is-empty</span>&gt; <span class="prep">from</span> [].
+<span class="result">(* a = true *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">b</span>: <span class="qual">lowbar.is-empty</span>&gt; <span class="prep">from</span> <span class="str">"hello"</span>.
+<span class="result">(* b = false *)</span></code></pre>
+</div>
+
+
+<!-- is-array -->
+<h3 id="is-array"><code>is-array</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.is-array&gt; from the &lt;value&gt;.</div>
+  <p class="entry-desc">Returns <code>true</code> if the value is a list.</p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">check</span>: <span class="qual">lowbar.is-array</span>&gt; <span class="prep">from</span> [<span class="num">1</span>, <span class="num">2</span>].
+<span class="result">(* check = true *)</span></code></pre>
+</div>
+
+
+<!-- is-string -->
+<h3 id="is-string"><code>is-string</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.is-string&gt; from the &lt;value&gt;.</div>
+  <p class="entry-desc">Returns <code>true</code> if the value is a string.</p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">check</span>: <span class="qual">lowbar.is-string</span>&gt; <span class="prep">from</span> <span class="str">"hello"</span>.
+<span class="result">(* check = true *)</span></code></pre>
+</div>
+
+
+<!-- is-number -->
+<h3 id="is-number"><code>is-number</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.is-number&gt; from the &lt;value&gt;.</div>
+  <p class="entry-desc">Returns <code>true</code> if the value is an integer or floating-point number.</p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">check</span>: <span class="qual">lowbar.is-number</span>&gt; <span class="prep">from</span> <span class="num">42</span>.
+<span class="result">(* check = true *)</span></code></pre>
+</div>
+
+
+<!-- is-boolean -->
+<h3 id="is-boolean"><code>is-boolean</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.is-boolean&gt; from the &lt;value&gt;.</div>
+  <p class="entry-desc">Returns <code>true</code> if the value is a boolean.</p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">check</span>: <span class="qual">lowbar.is-boolean</span>&gt; <span class="prep">from</span> true.
+<span class="result">(* check = true *)</span></code></pre>
+</div>
+
+
+<!-- is-object -->
+<h3 id="is-object"><code>is-object</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.is-object&gt; from the &lt;value&gt;.</div>
+  <p class="entry-desc">Returns <code>true</code> if the value is an object (key-value dictionary).</p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">check</span>: <span class="qual">lowbar.is-object</span>&gt; <span class="prep">from</span> { a: <span class="num">1</span> }.
+<span class="result">(* check = true *)</span></code></pre>
+</div>
+
+
+<!-- is-null -->
+<h3 id="is-null"><code>is-null</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.is-null&gt; from the &lt;value&gt;.</div>
+  <p class="entry-desc">Returns <code>true</code> if the value is nil/null.</p>
+</div>
+
+
+<!-- is-finite -->
+<h3 id="is-finite"><code>is-finite</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.is-finite&gt; from the &lt;number&gt;.</div>
+  <p class="entry-desc">Returns <code>true</code> if the value is a finite number (not infinity or NaN).</p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">check</span>: <span class="qual">lowbar.is-finite</span>&gt; <span class="prep">from</span> <span class="num">42</span>.
+<span class="result">(* check = true *)</span></code></pre>
+</div>
+
+
+<!-- is-equal -->
+<h3 id="is-equal"><code>is-equal</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.is-equal&gt; from the &lt;value&gt; with { other: x }.</div>
+  <p class="entry-desc">
+    Deep equality comparison between two values.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">same</span>: <span class="qual">lowbar.is-equal</span>&gt; <span class="prep">from</span> <span class="num">42</span> with { other: <span class="num">42</span> }.
+<span class="result">(* same = true *)</span>
+
+<span class="action">Compute</span> the &lt;<span class="sym">diff</span>: <span class="qual">lowbar.is-equal</span>&gt; <span class="prep">from</span> <span class="str">"hello"</span> with { other: <span class="str">"world"</span> }.
+<span class="result">(* diff = false *)</span></code></pre>
+</div>
+
+
+<!-- ================================================================
+     UTILITIES
+     ================================================================ -->
+<h2 id="utilities-section">Utilities</h2>
+<p>
+  String manipulation, data conversion, and pipeline helpers.
+</p>
+
+
+<!-- identity -->
+<h3 id="identity"><code>identity</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.identity&gt; from the &lt;value&gt;.</div>
+  <p class="entry-desc">
+    Returns the value unchanged. Sounds useless, but it's the default
+    qualifier &mdash; a no-op that's occasionally exactly what you need in a pipeline.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">same</span>: <span class="qual">lowbar.identity</span>&gt; <span class="prep">from</span> <span class="num">42</span>.
+<span class="result">(* same = 42 *)</span></code></pre>
+</div>
+
+
+<!-- escape -->
+<h3 id="escape"><code>escape</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.escape&gt; from the &lt;string&gt;.</div>
+  <p class="entry-desc">
+    Escapes a string for safe HTML insertion, converting <code>&amp;</code>, <code>&lt;</code>,
+    <code>&gt;</code>, <code>"</code>, and <code>'</code> to their HTML entity equivalents.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">safe</span>: <span class="qual">lowbar.escape</span>&gt; <span class="prep">from</span> <span class="str">"&lt;b&gt;bold &amp; \"italic\"&lt;/b&gt;"</span>.
+<span class="result">(* safe = "&amp;lt;b&amp;gt;bold &amp;amp; &amp;quot;italic&amp;quot;&amp;lt;/b&amp;gt;" *)</span></code></pre>
+</div>
+
+
+<!-- unescape -->
+<h3 id="unescape"><code>unescape</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.unescape&gt; from the &lt;string&gt;.</div>
+  <p class="entry-desc">
+    The inverse of <code>escape</code>. Converts HTML entities back to their characters.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">raw</span>: <span class="qual">lowbar.unescape</span>&gt; <span class="prep">from</span> <span class="str">"&amp;lt;b&amp;gt;bold&amp;lt;/b&amp;gt;"</span>.
+<span class="result">(* raw = "&lt;b&gt;bold&lt;/b&gt;" *)</span></code></pre>
+</div>
+
+
+<!-- join -->
+<h3 id="join"><code>join</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.join&gt; from the &lt;list&gt; with { separator: "..." }.</div>
+  <p class="entry-desc">
+    Concatenates all elements into a single string with a separator between each.
+    Defaults to <code>","</code>.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">csv</span>: <span class="qual">lowbar.join</span>&gt; <span class="prep">from</span> [<span class="str">"alice"</span>, <span class="str">"bob"</span>, <span class="str">"eve"</span>] with { separator: <span class="str">", "</span> }.
+<span class="result">(* csv = "alice, bob, eve" *)</span></code></pre>
+</div>
+
+
+<!-- split -->
+<h3 id="split"><code>split</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.split&gt; from the &lt;string&gt; with { separator: "..." }.</div>
+  <p class="entry-desc">
+    Splits a string into a list by a separator. The inverse of <code>join</code>.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">parts</span>: <span class="qual">lowbar.split</span>&gt; <span class="prep">from</span> <span class="str">"one:two:three"</span> with { separator: <span class="str">":"</span> }.
+<span class="result">(* parts = ["one", "two", "three"] *)</span></code></pre>
+</div>
+
+
+<!-- tap -->
+<h3 id="tap"><code>tap</code></h3>
+<div class="entry">
+  <div class="entry-signature">Compute the &lt;result: lowbar.tap&gt; from the &lt;value&gt;.</div>
+  <p class="entry-desc">
+    Returns the value unchanged &mdash; a pass-through useful as a checkpoint in
+    data pipelines or debugging.
+  </p>
+<pre><code><span class="action">Compute</span> the &lt;<span class="sym">debug</span>: <span class="qual">lowbar.tap</span>&gt; <span class="prep">from</span> the &lt;<span class="sym">data</span>&gt;.
+<span class="action">Log</span> &lt;<span class="sym">debug</span>&gt; to the &lt;<span class="sym">console</span>&gt;.
+<span class="result">(* Logs the data and passes it through *)</span></code></pre>
+</div>
+
+
+<!-- ================================================================
+     ACTIONS
+     ================================================================ -->
+<h2 id="actions-section">Actions</h2>
+<p>
+  Actions generate new data rather than transforming existing values.
+  They use the <code>Lowbar.</code> prefix (PascalCase) as verb-based statements.
+</p>
+
+
+<!-- Range -->
+<h3 id="range"><code>Range</code></h3>
+<div class="entry">
+  <div class="entry-signature">Lowbar.Range the &lt;result&gt; with { stop: N }.</div>
+  <p class="entry-desc">
+    Generates a list of integers from <code>start</code> (default 0) up to
+    but not including <code>stop</code>, incrementing by <code>step</code> (default 1).
+    Automatically counts down when start is greater than stop.
+  </p>
+<pre><code><span class="action">Lowbar.Range</span> the &lt;<span class="sym">digits</span>&gt; with { stop: <span class="num">5</span> }.
+<span class="result">(* digits = [0, 1, 2, 3, 4] *)</span>
+
+<span class="action">Lowbar.Range</span> the &lt;<span class="sym">evens</span>&gt; with { start: <span class="num">0</span>, stop: <span class="num">10</span>, step: <span class="num">2</span> }.
+<span class="result">(* evens = [0, 2, 4, 6, 8] *)</span>
+
+<span class="action">Lowbar.Range</span> the &lt;<span class="sym">countdown</span>&gt; with { start: <span class="num">5</span>, stop: <span class="num">0</span> }.
+<span class="result">(* countdown = [5, 4, 3, 2, 1] *)</span></code></pre>
+</div>
+
+
+<!-- Random -->
+<h3 id="random"><code>Random</code></h3>
+<div class="entry">
+  <div class="entry-signature">Lowbar.Random the &lt;result&gt; with { min: N, max: N }.</div>
+  <p class="entry-desc">
+    Generates a random integer between <code>min</code> and <code>max</code> inclusive.
+    Defaults to 0&ndash;100.
+  </p>
+<pre><code><span class="action">Lowbar.Random</span> the &lt;<span class="sym">dice</span>&gt; with { min: <span class="num">1</span>, max: <span class="num">6</span> }.
+<span class="result">(* dice = 4  (random 1-6) *)</span>
+
+<span class="action">Lowbar.Random</span> the &lt;<span class="sym">percent</span>&gt; with { min: <span class="num">0</span>, max: <span class="num">100</span> }.
+<span class="result">(* percent = 73  (random 0-100) *)</span></code></pre>
+</div>
+
+
+<!-- UniqueId -->
+<h3 id="unique-id"><code>UniqueId</code></h3>
+<div class="entry">
+  <div class="entry-signature">Lowbar.UniqueId the &lt;result&gt; with { prefix: "..." }.</div>
+  <p class="entry-desc">
+    Generates a globally unique identifier with an optional prefix.
+    Each call produces a new, incrementing ID.
+  </p>
+<pre><code><span class="action">Lowbar.UniqueId</span> the &lt;<span class="sym">id1</span>&gt; with { prefix: <span class="str">"user_"</span> }.
+<span class="action">Lowbar.UniqueId</span> the &lt;<span class="sym">id2</span>&gt; with { prefix: <span class="str">"user_"</span> }.
+<span class="result">(* id1 = "user_1" *)</span>
+<span class="result">(* id2 = "user_2" *)</span></code></pre>
+</div>
+
+
+<!-- Now -->
+<h3 id="now"><code>Now</code></h3>
+<div class="entry">
+  <div class="entry-signature">Lowbar.Now the &lt;result&gt; for the &lt;system&gt;.</div>
+  <p class="entry-desc">
+    Returns the current Unix timestamp in milliseconds. Useful for timing
+    and date calculations.
+  </p>
+<pre><code><span class="action">Lowbar.Now</span> the &lt;<span class="sym">timestamp</span>&gt; <span class="prep">for</span> the &lt;<span class="sym">system</span>&gt;.
+<span class="result">(* timestamp = 1713436800000 *)</span></code></pre>
+</div>
+
+
+<!-- Times -->
+<h3 id="times"><code>Times</code></h3>
+<div class="entry">
+  <div class="entry-signature">Lowbar.Times the &lt;result&gt; with { n: N, value: x }.</div>
+  <p class="entry-desc">
+    Creates a list containing <code>n</code> copies of a value.
+  </p>
+<pre><code><span class="action">Lowbar.Times</span> the &lt;<span class="sym">stars</span>&gt; with { n: <span class="num">5</span>, value: <span class="str">"*"</span> }.
+<span class="result">(* stars = ["*", "*", "*", "*", "*"] *)</span>
+
+<span class="action">Lowbar.Times</span> the &lt;<span class="sym">zeros</span>&gt; with { n: <span class="num">3</span>, value: <span class="num">0</span> }.
+<span class="result">(* zeros = [0, 0, 0] *)</span></code></pre>
+</div>
+
+
+<!-- ---- Footer ---- -->
+<div class="footer">
+  <p>
+    Lowbar v1.0.0 &mdash; an <a href="https://github.com/arolang/aro">ARO</a> plugin.<br>
+    Inspired by <a href="https://underscorejs.org">Underscore.js</a> by Jeremy Ashkenas.<br>
+    MIT License.
+  </p>
+</div>
+
+</div><!-- /content -->
+
+<script>
+// Highlight active sidebar link on scroll
+(function() {
+  const links = document.querySelectorAll('#sidebar nav a[href^="#"]');
+  const ids = Array.from(links).map(a => a.getAttribute('href').slice(1));
+
+  function update() {
+    let current = ids[0];
+    for (const id of ids) {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= 80) current = id;
+    }
+    links.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
+
+</body>
+</html>

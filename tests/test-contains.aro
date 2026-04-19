@@ -1,0 +1,19 @@
+(* Tests for lowbar.includes qualifier *)
+
+(containsfinds-existing-value: Lowbar Includes Test) {
+    Create the <items> with [1, 2, 3, 4, 5].
+    Compute the <result: lowbar.includes> from the <items> with { value: 3 }.
+    Then the <result> with 1.
+}
+
+(containsreturnsfalse-missing: Lowbar Includes Test) {
+    Create the <items> with [1, 2, 3].
+    Compute the <result: lowbar.includes> from the <items> with { value: 99 }.
+    Then the <result> with 0.
+}
+
+(containsfinds-string: Lowbar Includes Test) {
+    Create the <items> with ["alice", "bob", "eve"].
+    Compute the <result: lowbar.includes> from the <items> with { value: "bob" }.
+    Then the <result> with 1.
+}

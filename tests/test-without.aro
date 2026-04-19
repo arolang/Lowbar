@@ -1,0 +1,19 @@
+(* Tests for lowbar.without qualifier *)
+
+(without-removes-values: Lowbar Without Test) {
+    Create the <items> with [1, 2, 3, 4, 5].
+    Compute the <result: lowbar.without> from the <items> with { values: [2, 4] }.
+    Then the <result> with [1, 3, 5].
+}
+
+(without-removes-strings: Lowbar Without Test) {
+    Create the <items> with ["a", "b", "c", "d"].
+    Compute the <result: lowbar.without> from the <items> with { values: ["b", "d"] }.
+    Then the <result> with ["a", "c"].
+}
+
+(without-nomatches: Lowbar Without Test) {
+    Create the <items> with [1, 2, 3].
+    Compute the <result: lowbar.without> from the <items> with { values: [99] }.
+    Then the <result> with [1, 2, 3].
+}

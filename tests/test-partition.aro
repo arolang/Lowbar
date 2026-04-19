@@ -1,0 +1,16 @@
+(* Tests for lowbar.partition qualifier *)
+
+(partition-splitsvia-property: Lowbar Partition Test) {
+    Create the <users> with [
+        { name: "Alice", active: true },
+        { name: "Bob", active: true },
+        { name: "Eve", active: false }
+    ].
+    Compute the <result: lowbar.partition> from the <users> with { active: true }.
+    Compute the <pass: lowbar.first> from the <result>.
+    Compute the <fail: lowbar.last> from the <result>.
+    Compute the <pass-count: lowbar.size> from the <pass>.
+    Compute the <fail-count: lowbar.size> from the <fail>.
+    Then the <pass-count> with 2.
+    Then the <fail-count> with 1.
+}

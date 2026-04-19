@@ -1,0 +1,14 @@
+(* Tests for lowbar.last-indexof qualifier *)
+
+(last-index-finds-last: Lowbar LastIndexOf Test) {
+    Create the <items> with ["a", "b", "c", "b"].
+    Compute the <result: lowbar.last-indexof> from the <items> with { value: "b" }.
+    Then the <result> with 3.
+}
+
+(last-index-returns-negative-one: Lowbar LastIndexOf Test) {
+    Create the <items> with [1, 2, 3].
+    Compute the <result: lowbar.last-indexof> from the <items> with { value: 99 }.
+    Given the <expected> with -1.
+    Then the <result> with <expected>.
+}

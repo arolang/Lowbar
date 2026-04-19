@@ -1,0 +1,106 @@
+(* Tests for all type-check qualifiers *)
+
+(check-isempty-blank-list: Lowbar TypeCheck Test) {
+    Create the <items> with [].
+    Compute the <result: lowbar.isempty> from the <items>.
+    Then the <result> with 1.
+}
+
+(check-isempty-full-list: Lowbar TypeCheck Test) {
+    Create the <items> with [1].
+    Compute the <result: lowbar.isempty> from the <items>.
+    Then the <result> with 0.
+}
+
+(check-isempty-blank-string: Lowbar TypeCheck Test) {
+    Compute the <result: lowbar.isempty> from "".
+    Then the <result> with 1.
+}
+
+(check-isempty-full-string: Lowbar TypeCheck Test) {
+    Compute the <result: lowbar.isempty> from "hello".
+    Then the <result> with 0.
+}
+
+(check-isarray-list: Lowbar TypeCheck Test) {
+    Create the <items> with [1, 2, 3].
+    Compute the <result: lowbar.isarray> from the <items>.
+    Then the <result> with 1.
+}
+
+(check-isarray-string: Lowbar TypeCheck Test) {
+    Compute the <result: lowbar.isarray> from "hello".
+    Then the <result> with 0.
+}
+
+(check-isstring-string: Lowbar TypeCheck Test) {
+    Compute the <result: lowbar.isstring> from "hello".
+    Then the <result> with 1.
+}
+
+(check-isstring-number: Lowbar TypeCheck Test) {
+    Compute the <result: lowbar.isstring> from 42.
+    Then the <result> with 0.
+}
+
+(check-isnumber-int: Lowbar TypeCheck Test) {
+    Compute the <result: lowbar.isnumber> from 42.
+    Then the <result> with 1.
+}
+
+(check-isnumber-string: Lowbar TypeCheck Test) {
+    Compute the <result: lowbar.isnumber> from "hello".
+    Then the <result> with 0.
+}
+
+(check-isboolean-yes: Lowbar TypeCheck Test) {
+    Compute the <result: lowbar.isboolean> from true.
+    Then the <result> with 1.
+}
+
+(check-isboolean-no: Lowbar TypeCheck Test) {
+    Compute the <result: lowbar.isboolean> from false.
+    Then the <result> with 1.
+}
+
+(check-isboolean-num: Lowbar TypeCheck Test) {
+    Compute the <result: lowbar.isboolean> from 42.
+    Then the <result> with 0.
+}
+
+(check-isobject-dict: Lowbar TypeCheck Test) {
+    Create the <obj> with { a: 1 }.
+    Compute the <result: lowbar.isobject> from the <obj>.
+    Then the <result> with 1.
+}
+
+(check-isobject-list: Lowbar TypeCheck Test) {
+    Create the <items> with [1, 2].
+    Compute the <result: lowbar.isobject> from the <items>.
+    Then the <result> with 0.
+}
+
+(check-isfinite-int: Lowbar TypeCheck Test) {
+    Compute the <result: lowbar.isfinite> from 42.
+    Then the <result> with 1.
+}
+
+(check-isequal-same-ints: Lowbar TypeCheck Test) {
+    Compute the <result: lowbar.isequal> from 42 with { other: 42 }.
+    Then the <result> with 1.
+}
+
+(check-isequal-diff-ints: Lowbar TypeCheck Test) {
+    Compute the <result: lowbar.isequal> from 42 with { other: 99 }.
+    Then the <result> with 0.
+}
+
+(check-isequal-same-strings: Lowbar TypeCheck Test) {
+    Compute the <result: lowbar.isequal> from "hello" with { other: "hello" }.
+    Then the <result> with 1.
+}
+
+(check-isequal-diff-strings: Lowbar TypeCheck Test) {
+    Compute the <result: lowbar.isequal> from "hello" with { other: "world" }.
+    Then the <result> with 0.
+}

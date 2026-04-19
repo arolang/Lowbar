@@ -1,0 +1,31 @@
+(* Tests for Lowbar.Range action *)
+
+(range-zerointo-stop: Lowbar Range Test) {
+    Lowbar.Range the <result> with { stop: 5 }.
+    Extract the <actual> from the <result: data>.
+    Then the <actual> with [0, 1, 2, 3, 4].
+}
+
+(range-startinto-stop: Lowbar Range Test) {
+    Lowbar.Range the <result> with { start: 3, stop: 7 }.
+    Extract the <actual> from the <result: data>.
+    Then the <actual> with [3, 4, 5, 6].
+}
+
+(range-step: Lowbar Range Test) {
+    Lowbar.Range the <result> with { start: 0, stop: 10, step: 2 }.
+    Extract the <actual> from the <result: data>.
+    Then the <actual> with [0, 2, 4, 6, 8].
+}
+
+(range-countdown: Lowbar Range Test) {
+    Lowbar.Range the <result> with { start: 5, stop: 0 }.
+    Extract the <actual> from the <result: data>.
+    Then the <actual> with [5, 4, 3, 2, 1].
+}
+
+(range-same-start-stop: Lowbar Range Test) {
+    Lowbar.Range the <result> with { start: 3, stop: 3 }.
+    Extract the <actual> from the <result: data>.
+    Then the <actual> with [].
+}

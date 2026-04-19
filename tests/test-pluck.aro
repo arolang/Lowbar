@@ -1,0 +1,20 @@
+(* Tests for lowbar.pluck qualifier *)
+
+(pluck-extracts-field: Lowbar Pluck Test) {
+    Create the <users> with [
+        { name: "Alice", age: 30 },
+        { name: "Bob", age: 25 },
+        { name: "Eve", age: 22 }
+    ].
+    Compute the <result: lowbar.pluck> from the <users> with { field: "name" }.
+    Then the <result> with ["Alice", "Bob", "Eve"].
+}
+
+(pluck-extracts-numeric-field: Lowbar Pluck Test) {
+    Create the <users> with [
+        { name: "Alice", age: 30 },
+        { name: "Bob", age: 25 }
+    ].
+    Compute the <result: lowbar.pluck> from the <users> with { field: "age" }.
+    Then the <result> with [30, 25].
+}

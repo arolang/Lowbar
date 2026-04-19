@@ -1,0 +1,12 @@
+(* Tests for lowbar.mapobject qualifier *)
+
+(map-object-rename-single-key: Lowbar MapObject Test) {
+    Create the <obj> with { first_name: "Alice", age: 30 }.
+    Compute the <result: lowbar.mapobject> from the <obj> with { old: "first_name", new: "name" }.
+    Compute the <has-name: lowbar.has> from the <result> with { key: "name" }.
+    Then the <has-name> with 1.
+    Compute the <has-old: lowbar.has> from the <result> with { key: "first_name" }.
+    Then the <has-old> with 0.
+    Compute the <name: lowbar.get> from the <result> with { path: "name" }.
+    Then the <name> with "Alice".
+}

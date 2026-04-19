@@ -1,0 +1,12 @@
+(* Tests for lowbar.omit qualifier *)
+
+(omit-excludes-keys: Lowbar Omit Test) {
+    Create the <user> with { name: "Alice", email: "a@b.com", password: "secret" }.
+    Compute the <result: lowbar.omit> from the <user> with { keys: ["password"] }.
+    Compute the <count: lowbar.size> from the <result>.
+    Then the <count> with 2.
+    Compute the <has-password: lowbar.has> from the <result> with { key: "password" }.
+    Then the <has-password> with 0.
+    Compute the <name: lowbar.get> from the <result> with { path: "name" }.
+    Then the <name> with "Alice".
+}

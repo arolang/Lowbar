@@ -1,0 +1,12 @@
+(* Tests for lowbar.toarray qualifier *)
+
+(toarray-stringinto-chars: Lowbar ToArray Test) {
+    Compute the <result: lowbar.toarray> from "Hi".
+    Then the <result> with ["H", "i"].
+}
+
+(toarray-list-passthrough: Lowbar ToArray Test) {
+    Create the <items> with [1, 2, 3].
+    Compute the <result: lowbar.toarray> from the <items>.
+    Then the <result> with [1, 2, 3].
+}

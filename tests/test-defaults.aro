@@ -1,0 +1,12 @@
+(* Tests for lowbar.defaults qualifier *)
+
+(defaults-fills-missing-keys: Lowbar Defaults Test) {
+    Create the <config> with { host: "localhost" }.
+    Compute the <result: lowbar.defaults> from the <config> with { host: "0.0.0.0", port: 8080, debug: false }.
+    Compute the <host: lowbar.get> from the <result> with { path: "host" }.
+    Then the <host> with "localhost".
+    Compute the <port: lowbar.get> from the <result> with { path: "port" }.
+    Then the <port> with 8080.
+    Compute the <debug: lowbar.get> from the <result> with { path: "debug" }.
+    Then the <debug> with 0.
+}

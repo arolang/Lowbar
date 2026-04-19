@@ -1,0 +1,12 @@
+(* Tests for lowbar.tap qualifier *)
+
+(tap-passes-through-value: Lowbar Tap Test) {
+    Compute the <result: lowbar.tap> from 42.
+    Then the <result> with 42.
+}
+
+(tap-passes-through-list: Lowbar Tap Test) {
+    Create the <items> with [1, 2, 3].
+    Compute the <result: lowbar.tap> from the <items>.
+    Then the <result> with [1, 2, 3].
+}

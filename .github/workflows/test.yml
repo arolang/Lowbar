@@ -1,0 +1,67 @@
+name: Test
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: [main]
+
+env:
+  SWIFT_VERSION: '6.2'
+
+jobs:
+  build-plugin:
+    name: Build Plugin
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Swift
+        uses: swift-actions/setup-swift@v2
+        with:
+          swift-version: ${{ env.SWIFT_VERSION }}
+
+      - name: Cache Swift packages
+        uses: actions/cache@v4
+        with:
+          path: Plugins/lowbar/.build
+          key: plugin-${{ runner.os }}-swift-${{ env.SWIFT_VERSION }}-${{ hashFiles('Plugins/lowbar/Package.resolved') }}
+          restore-keys: plugin-${{ runner.os }}-swift-${{ env.SWIFT_VERSION }}-
+
+      - name: Build plugin
+        run: |
+          cd Plugins/lowbar
+          swift build -c release
+          echo "Plugin built successfully"
+
+  test:
+    name: Run Tests
+    runs-on: macos-15
+    needs: build-plugin
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Swift
+        uses: swift-actions/setup-swift@v2
+        with:
+          swift-version: ${{ env.SWIFT_VERSION }}
+
+      - name: Cache Swift packages
+        uses: actions/cache@v4
+        with:
+          path: Plugins/lowbar/.build
+          key: plugin-${{ runner.os }}-swift-${{ env.SWIFT_VERSION }}-${{ hashFiles('Plugins/lowbar/Package.resolved') }}
+          restore-keys: plugin-${{ runner.os }}-swift-${{ env.SWIFT_VERSION }}-
+
+      - name: Install ARO
+        run: |
+          brew tap arolang/aro
+          brew install aro
+
+      - name: Build plugin
+        run: |
+          cd Plugins/lowbar
+          swift build -c release
+
+      - name: Run tests
+        run: aro test .

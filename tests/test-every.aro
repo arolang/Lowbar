@@ -1,0 +1,31 @@
+(* Tests for lowbar.every qualifier *)
+
+(every-all-match: Lowbar Every Test) {
+    Create the <users> with [
+        { name: "Alice", active: true },
+        { name: "Bob", active: true }
+    ].
+    Compute the <result: lowbar.every> from the <users> with { active: true }.
+    Then the <result> with 1.
+}
+
+(everynot-all-match: Lowbar Every Test) {
+    Create the <users> with [
+        { name: "Alice", active: true },
+        { name: "Bob", active: false }
+    ].
+    Compute the <result: lowbar.every> from the <users> with { active: true }.
+    Then the <result> with 0.
+}
+
+(every-truthy-without-props: Lowbar Every Test) {
+    Create the <items> with [1, 2, 3].
+    Compute the <result: lowbar.every> from the <items>.
+    Then the <result> with 1.
+}
+
+(every-falsy-without-props: Lowbar Every Test) {
+    Create the <items> with [1, 0, 3].
+    Compute the <result: lowbar.every> from the <items>.
+    Then the <result> with 0.
+}

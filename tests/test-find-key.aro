@@ -1,0 +1,13 @@
+(* Tests for lowbar.findkey qualifier *)
+
+(find-key-finds-matching-key: Lowbar FindKey Test) {
+    Create the <colors> with { red: "#ff0000", green: "#00ff00", blue: "#0000ff" }.
+    Compute the <result: lowbar.findkey> from the <colors> with { value: "#ff0000" }.
+    Then the <result> with "red".
+}
+
+(find-key-returnsnil-ifnot-found: Lowbar FindKey Test) {
+    Create the <colors> with { red: "#ff0000" }.
+    Compute the <result: lowbar.findkey> from the <colors> with { value: "#999999" }.
+    Then the <result> with "nil".
+}

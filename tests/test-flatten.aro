@@ -1,0 +1,19 @@
+(* Tests for lowbar.flatten qualifier *)
+
+(flatten-deep-flattens-nested: Lowbar Flatten Test) {
+    Create the <items> with [[1, 2], [3, [4, 5]], [6]].
+    Compute the <result: lowbar.flatten> from the <items>.
+    Then the <result> with [1, 2, 3, 4, 5, 6].
+}
+
+(flatten-shallow-one-level: Lowbar Flatten Test) {
+    Create the <items> with [[1, 2], [3, [4, 5]], [6]].
+    Compute the <result: lowbar.flatten> from the <items> with { deep: false }.
+    Then the <result> with [1, 2, 3, [4, 5], 6].
+}
+
+(flatten-already-flat: Lowbar Flatten Test) {
+    Create the <items> with [1, 2, 3].
+    Compute the <result: lowbar.flatten> from the <items>.
+    Then the <result> with [1, 2, 3].
+}

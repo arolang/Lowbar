@@ -1,0 +1,8 @@
+(* Tests for Lowbar.Now action *)
+
+(now-returns-number: Lowbar Now Test) {
+    Lowbar.Now the <result> for the <system>.
+    Extract the <value> from the <result: data>.
+    Compute the <num-check: lowbar.isnumber> from the <value>.
+    Then the <num-check> with 1.
+}

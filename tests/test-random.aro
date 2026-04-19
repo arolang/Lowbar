@@ -1,0 +1,21 @@
+(* Tests for Lowbar.Random action *)
+
+(random-generates-within-range: Lowbar Random Test) {
+    Lowbar.Random the <result> with { min: 1, max: 6 }.
+    Extract the <value> from the <result: data>.
+    Compute the <num-check: lowbar.isnumber> from the <value>.
+    Then the <num-check> with 1.
+}
+
+(random-generates-number: Lowbar Random Test) {
+    Lowbar.Random the <result> with { min: 0, max: 100 }.
+    Extract the <value> from the <result: data>.
+    Compute the <num-check: lowbar.isnumber> from the <value>.
+    Then the <num-check> with 1.
+}
+
+(random-same-min-max: Lowbar Random Test) {
+    Lowbar.Random the <result> with { min: 42, max: 42 }.
+    Extract the <actual> from the <result: data>.
+    Then the <actual> with 42.
+}

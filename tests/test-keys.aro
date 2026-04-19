@@ -1,0 +1,13 @@
+(* Tests for lowbar.keys qualifier *)
+
+(keys-returns-sorted-keys: Lowbar Keys Test) {
+    Create the <obj> with { host: "localhost", port: 8080 }.
+    Compute the <result: lowbar.keys> from the <obj>.
+    Then the <result> with ["host", "port"].
+}
+
+(keys-blank-object: Lowbar Keys Test) {
+    Create the <obj> with {}.
+    Compute the <result: lowbar.keys> from the <obj>.
+    Then the <result> with [].
+}

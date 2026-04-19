@@ -1,0 +1,19 @@
+(* Tests for lowbar.sortedindex qualifier *)
+
+(sorted-index-finds-insertion-point: Lowbar SortedIndex Test) {
+    Create the <items> with [10, 20, 30, 40].
+    Compute the <result: lowbar.sortedindex> from the <items> with { value: 25 }.
+    Then the <result> with 2.
+}
+
+(sorted-index-start: Lowbar SortedIndex Test) {
+    Create the <items> with [10, 20, 30].
+    Compute the <result: lowbar.sortedindex> from the <items> with { value: 5 }.
+    Then the <result> with 0.
+}
+
+(sorted-index-end: Lowbar SortedIndex Test) {
+    Create the <items> with [10, 20, 30].
+    Compute the <result: lowbar.sortedindex> from the <items> with { value: 35 }.
+    Then the <result> with 3.
+}

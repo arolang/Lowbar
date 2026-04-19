@@ -1,0 +1,18 @@
+(* Tests for lowbar.min qualifier *)
+
+(min-numbers: Lowbar Min Test) {
+    Create the <items> with [5, 3, 8, 1, 9, 2].
+    Compute the <result: lowbar.min> from the <items>.
+    Then the <result> with 1.
+}
+
+(minvia-field: Lowbar Min Test) {
+    Create the <users> with [
+        { name: "Alice", age: 30 },
+        { name: "Bob", age: 25 },
+        { name: "Eve", age: 35 }
+    ].
+    Compute the <result: lowbar.min> from the <users> with { field: "age" }.
+    Compute the <name: lowbar.get> from the <result> with { path: "name" }.
+    Then the <name> with "Bob".
+}

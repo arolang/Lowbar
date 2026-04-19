@@ -1,0 +1,16 @@
+(* Tests for lowbar.escape qualifier *)
+
+(escape-html-entities: Lowbar Escape Test) {
+    Compute the <result: lowbar.escape> from "<b>bold</b>".
+    Then the <result> with "&lt;b&gt;bold&lt;/b&gt;".
+}
+
+(escape-ampersand: Lowbar Escape Test) {
+    Compute the <result: lowbar.escape> from "a & b".
+    Then the <result> with "a &amp; b".
+}
+
+(escape-no-special-chars: Lowbar Escape Test) {
+    Compute the <result: lowbar.escape> from "hello world".
+    Then the <result> with "hello world".
+}

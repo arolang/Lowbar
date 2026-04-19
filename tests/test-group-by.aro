@@ -1,0 +1,19 @@
+(* Tests for lowbar.groupby qualifier *)
+
+(groupvia-groups-correctly: Lowbar GroupBy Test) {
+    Create the <items> with [
+        { name: "Alice", role: "admin" },
+        { name: "Bob", role: "user" },
+        { name: "Eve", role: "admin" }
+    ].
+    Compute the <result: lowbar.groupby> from the <items> with { field: "role" }.
+    Compute the <result-keys: lowbar.keys> from the <result>.
+    Compute the <key-count: lowbar.size> from the <result-keys>.
+    Then the <key-count> with 2.
+    Compute the <admin-group: lowbar.get> from the <result> with { path: "admin" }.
+    Compute the <admin-count: lowbar.size> from the <admin-group>.
+    Then the <admin-count> with 2.
+    Compute the <user-group: lowbar.get> from the <result> with { path: "user" }.
+    Compute the <user-count: lowbar.size> from the <user-group>.
+    Then the <user-count> with 1.
+}

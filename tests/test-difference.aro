@@ -1,0 +1,19 @@
+(* Tests for lowbar.difference qualifier *)
+
+(difference-removes-common: Lowbar Difference Test) {
+    Create the <a> with [1, 2, 3, 4, 5].
+    Compute the <result: lowbar.difference> from the <a> with { other: [3, 4, 5, 6] }.
+    Then the <result> with [1, 2].
+}
+
+(difference-nothing-removed: Lowbar Difference Test) {
+    Create the <a> with [1, 2, 3].
+    Compute the <result: lowbar.difference> from the <a> with { other: [4, 5, 6] }.
+    Then the <result> with [1, 2, 3].
+}
+
+(difference-all-removed: Lowbar Difference Test) {
+    Create the <a> with [1, 2, 3].
+    Compute the <result: lowbar.difference> from the <a> with { other: [1, 2, 3] }.
+    Then the <result> with [].
+}

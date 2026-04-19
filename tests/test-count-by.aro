@@ -1,0 +1,15 @@
+(* Tests for lowbar.countby qualifier *)
+
+(countvia-counts-groups: Lowbar CountBy Test) {
+    Create the <items> with [
+        { name: "Alice", role: "admin" },
+        { name: "Bob", role: "user" },
+        { name: "Eve", role: "admin" },
+        { name: "Dave", role: "user" }
+    ].
+    Compute the <result: lowbar.countby> from the <items> with { field: "role" }.
+    Compute the <admin-count: lowbar.get> from the <result> with { path: "admin" }.
+    Then the <admin-count> with 2.
+    Compute the <user-count: lowbar.get> from the <result> with { path: "user" }.
+    Then the <user-count> with 2.
+}

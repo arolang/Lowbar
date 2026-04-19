@@ -1,0 +1,14 @@
+(* Tests for lowbar.rejectwhere qualifier *)
+
+(reject-match-excludesmatches: Lowbar RejectMatch Test) {
+    Create the <users> with [
+        { name: "Alice", role: "admin" },
+        { name: "Bob", role: "user" },
+        { name: "Eve", role: "admin" }
+    ].
+    Compute the <result: lowbar.rejectwhere> from the <users> with { role: "admin" }.
+    Compute the <count: lowbar.size> from the <result>.
+    Then the <count> with 1.
+    Compute the <names: lowbar.pluck> from the <result> with { field: "name" }.
+    Then the <names> with ["Bob"].
+}

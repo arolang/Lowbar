@@ -1,0 +1,34 @@
+(* Tests for lowbar.sortby qualifier *)
+
+(sortvia-ascending: Lowbar SortBy Test) {
+    Create the <users> with [
+        { name: "Alice", age: 30 },
+        { name: "Bob", age: 25 },
+        { name: "Eve", age: 22 }
+    ].
+    Compute the <result: lowbar.sortby> from the <users> with { field: "age" }.
+    Compute the <names: lowbar.pluck> from the <result> with { field: "name" }.
+    Then the <names> with ["Eve", "Bob", "Alice"].
+}
+
+(sortvia-descending: Lowbar SortBy Test) {
+    Create the <users> with [
+        { name: "Alice", age: 30 },
+        { name: "Bob", age: 25 },
+        { name: "Eve", age: 22 }
+    ].
+    Compute the <result: lowbar.sortby> from the <users> with { field: "age", order: "desc" }.
+    Compute the <names: lowbar.pluck> from the <result> with { field: "name" }.
+    Then the <names> with ["Alice", "Bob", "Eve"].
+}
+
+(sortvia-string-field: Lowbar SortBy Test) {
+    Create the <users> with [
+        { name: "Charlie", age: 30 },
+        { name: "Alice", age: 25 },
+        { name: "Bob", age: 22 }
+    ].
+    Compute the <result: lowbar.sortby> from the <users> with { field: "name" }.
+    Compute the <names: lowbar.pluck> from the <result> with { field: "name" }.
+    Then the <names> with ["Alice", "Bob", "Charlie"].
+}

@@ -1,0 +1,17 @@
+(* Tests for lowbar.zip qualifier *)
+
+(zip-pairs-elements: Lowbar Zip Test) {
+    Create the <a> with ["a", "b", "c"].
+    Compute the <result: lowbar.zip> from the <a> with { other: [1, 2, 3] }.
+    Compute the <count: lowbar.size> from the <result>.
+    Then the <count> with 3.
+    Compute the <first-pair: lowbar.first> from the <result>.
+    Then the <first-pair> with ["a", 1].
+}
+
+(zip-unequal-lengths: Lowbar Zip Test) {
+    Create the <a> with ["x", "y"].
+    Compute the <result: lowbar.zip> from the <a> with { other: [1, 2, 3] }.
+    Compute the <count: lowbar.size> from the <result>.
+    Then the <count> with 3.
+}

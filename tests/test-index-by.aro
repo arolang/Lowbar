@@ -1,0 +1,15 @@
+(* Tests for lowbar.indexby qualifier *)
+
+(indexvia-creates-lookup: Lowbar IndexBy Test) {
+    Create the <items> with [
+        { name: "Alice", age: 30 },
+        { name: "Bob", age: 25 }
+    ].
+    Compute the <result: lowbar.indexby> from the <items> with { field: "name" }.
+    Compute the <has-alice: lowbar.has> from the <result> with { key: "Alice" }.
+    Then the <has-alice> with 1.
+    Compute the <has-bob: lowbar.has> from the <result> with { key: "Bob" }.
+    Then the <has-bob> with 1.
+    Compute the <result-size: lowbar.size> from the <result>.
+    Then the <result-size> with 2.
+}

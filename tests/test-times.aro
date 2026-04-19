@@ -1,0 +1,26 @@
+(* Tests for Lowbar.Times action *)
+
+(times-repeats-string-value: Lowbar Times Test) {
+    Lowbar.Times the <result> with { n: 3, value: "x" }.
+    Extract the <actual> from the <result: data>.
+    Then the <actual> with ["x", "x", "x"].
+}
+
+(times-repeats-numeric-value: Lowbar Times Test) {
+    Lowbar.Times the <result> with { n: 4, value: 0 }.
+    Extract the <actual> from the <result: data>.
+    Then the <actual> with [0, 0, 0, 0].
+}
+
+(times-zero-returns-blank: Lowbar Times Test) {
+    Lowbar.Times the <result> with { n: 0, value: "x" }.
+    Extract the <actual> from the <result: data>.
+    Then the <actual> with [].
+}
+
+(times-five-stars: Lowbar Times Test) {
+    Lowbar.Times the <result> with { n: 5, value: "*" }.
+    Extract the <actual> from the <result: data>.
+    Compute the <count: lowbar.size> from the <actual>.
+    Then the <count> with 5.
+}

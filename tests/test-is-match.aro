@@ -1,0 +1,19 @@
+(* Tests for lowbar.ismatch qualifier *)
+
+(check-match-returnstrue-subset: Lowbar IsMatch Test) {
+    Create the <obj> with { name: "Alice", role: "admin", age: 30 }.
+    Compute the <result: lowbar.ismatch> from the <obj> with { role: "admin" }.
+    Then the <result> with 1.
+}
+
+(check-match-returnsfalse-mismatch: Lowbar IsMatch Test) {
+    Create the <obj> with { name: "Alice", role: "admin" }.
+    Compute the <result: lowbar.ismatch> from the <obj> with { role: "user" }.
+    Then the <result> with 0.
+}
+
+(check-match-multiple-properties: Lowbar IsMatch Test) {
+    Create the <obj> with { name: "Alice", role: "admin", active: true }.
+    Compute the <result: lowbar.ismatch> from the <obj> with { role: "admin", active: true }.
+    Then the <result> with 1.
+}

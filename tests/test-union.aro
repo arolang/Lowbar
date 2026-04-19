@@ -1,0 +1,19 @@
+(* Tests for lowbar.union qualifier *)
+
+(union-combines-unique: Lowbar Union Test) {
+    Create the <a> with [1, 2, 3].
+    Compute the <result: lowbar.union> from the <a> with { other: [3, 4, 5] }.
+    Then the <result> with [1, 2, 3, 4, 5].
+}
+
+(union-no-overlap: Lowbar Union Test) {
+    Create the <a> with [1, 2].
+    Compute the <result: lowbar.union> from the <a> with { other: [3, 4] }.
+    Then the <result> with [1, 2, 3, 4].
+}
+
+(union-full-overlap: Lowbar Union Test) {
+    Create the <a> with [1, 2, 3].
+    Compute the <result: lowbar.union> from the <a> with { other: [1, 2, 3] }.
+    Then the <result> with [1, 2, 3].
+}

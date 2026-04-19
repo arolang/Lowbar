@@ -1,0 +1,13 @@
+(* Tests for lowbar.initial qualifier *)
+
+(initial-drops-last-element: Lowbar Initial Test) {
+    Create the <items> with [1, 2, 3, 4, 5].
+    Compute the <result: lowbar.initial> from the <items>.
+    Then the <result> with [1, 2, 3, 4].
+}
+
+(initial-n-drops-last-n: Lowbar Initial Test) {
+    Create the <items> with [1, 2, 3, 4, 5].
+    Compute the <result: lowbar.initial> from the <items> with { n: 3 }.
+    Then the <result> with [1, 2].
+}

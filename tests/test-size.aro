@@ -1,0 +1,24 @@
+(* Tests for lowbar.size qualifier *)
+
+(size-list: Lowbar Size Test) {
+    Create the <items> with [10, 20, 30].
+    Compute the <result: lowbar.size> from the <items>.
+    Then the <result> with 3.
+}
+
+(size-blank-list: Lowbar Size Test) {
+    Create the <items> with [].
+    Compute the <result: lowbar.size> from the <items>.
+    Then the <result> with 0.
+}
+
+(size-string: Lowbar Size Test) {
+    Compute the <result: lowbar.size> from "hello".
+    Then the <result> with 5.
+}
+
+(size-object: Lowbar Size Test) {
+    Create the <obj> with { a: 1, b: 2, c: 3 }.
+    Compute the <result: lowbar.size> from the <obj>.
+    Then the <result> with 3.
+}

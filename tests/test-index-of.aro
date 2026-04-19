@@ -1,0 +1,20 @@
+(* Tests for lowbar.indexof qualifier *)
+
+(index-finds-value: Lowbar IndexOf Test) {
+    Create the <items> with ["a", "b", "c", "b"].
+    Compute the <result: lowbar.indexof> from the <items> with { value: "b" }.
+    Then the <result> with 1.
+}
+
+(index-returns-negative-one-if-missing: Lowbar IndexOf Test) {
+    Create the <items> with [1, 2, 3].
+    Compute the <result: lowbar.indexof> from the <items> with { value: 99 }.
+    Given the <expected> with -1.
+    Then the <result> with <expected>.
+}
+
+(index-finds-first-occurrence: Lowbar IndexOf Test) {
+    Create the <items> with [5, 3, 8, 3, 1].
+    Compute the <result: lowbar.indexof> from the <items> with { value: 3 }.
+    Then the <result> with 1.
+}

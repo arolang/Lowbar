@@ -1,0 +1,11 @@
+(* Tests for lowbar.unescape qualifier *)
+
+(unescape-html-entities: Lowbar Unescape Test) {
+    Compute the <result: lowbar.unescape> from "&lt;b&gt;bold&lt;/b&gt;".
+    Then the <result> with "<b>bold</b>".
+}
+
+(unescape-ampersand: Lowbar Unescape Test) {
+    Compute the <result: lowbar.unescape> from "a &amp; b".
+    Then the <result> with "a & b".
+}

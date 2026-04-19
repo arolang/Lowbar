@@ -1,0 +1,16 @@
+(* Tests for Lowbar.UniqueId action *)
+
+(unique-id-generates-string: Lowbar UniqueId Test) {
+    Lowbar.UniqueId the <result> with { prefix: "test_" }.
+    Extract the <value> from the <result: data>.
+    Compute the <str-check: lowbar.isstring> from the <value>.
+    Then the <str-check> with 1.
+}
+
+(unique-id-increments: Lowbar UniqueId Test) {
+    Lowbar.UniqueId the <id1> with { prefix: "u_" }.
+    Lowbar.UniqueId the <id2> with { prefix: "u_" }.
+    Extract the <value> from the <id2: data>.
+    Compute the <check: lowbar.isstring> from the <value>.
+    Then the <check> with 1.
+}

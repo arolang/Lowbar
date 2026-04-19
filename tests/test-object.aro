@@ -1,0 +1,12 @@
+(* Tests for lowbar.object qualifier *)
+
+(object-converts-pairsinto-dict: Lowbar Object Test) {
+    Create the <items> with [["name", "Alice"], ["age", 30]].
+    Compute the <result: lowbar.object> from the <items>.
+    Compute the <name: lowbar.get> from the <result> with { path: "name" }.
+    Then the <name> with "Alice".
+    Compute the <age: lowbar.get> from the <result> with { path: "age" }.
+    Then the <age> with 30.
+    Compute the <count: lowbar.size> from the <result>.
+    Then the <count> with 2.
+}

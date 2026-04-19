@@ -1,0 +1,15 @@
+(* Tests for lowbar.sample qualifier *)
+
+(sample-returns-element: Lowbar Sample Test) {
+    Create the <items> with [10, 20, 30].
+    Compute the <result: lowbar.sample> from the <items>.
+    Compute the <check: lowbar.isnumber> from the <result>.
+    Then the <check> with 1.
+}
+
+(sample-n-returns-correct-count: Lowbar Sample Test) {
+    Create the <items> with [1, 2, 3, 4, 5].
+    Compute the <result: lowbar.sample> from the <items> with { n: 3 }.
+    Compute the <count: lowbar.size> from the <result>.
+    Then the <count> with 3.
+}

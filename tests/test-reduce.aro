@@ -1,0 +1,25 @@
+(* Tests for lowbar.reduce qualifier *)
+
+(reduce-sum: Lowbar Reduce Test) {
+    Create the <items> with [1, 2, 3, 4].
+    Compute the <result: lowbar.reduce> from the <items> with { op: "+" }.
+    Then the <result> with 10.
+}
+
+(reduce-product: Lowbar Reduce Test) {
+    Create the <items> with [1, 2, 3, 4, 5].
+    Compute the <result: lowbar.reduce> from the <items> with { op: "*" }.
+    Then the <result> with 120.
+}
+
+(reduce-join: Lowbar Reduce Test) {
+    Create the <items> with ["hello", "world"].
+    Compute the <result: lowbar.reduce> from the <items> with { op: "join", separator: " " }.
+    Then the <result> with "hello world".
+}
+
+(reduce-join-comma: Lowbar Reduce Test) {
+    Create the <items> with ["a", "b", "c"].
+    Compute the <result: lowbar.reduce> from the <items> with { op: "join", separator: ", " }.
+    Then the <result> with "a, b, c".
+}

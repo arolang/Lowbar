@@ -1,0 +1,25 @@
+(* Tests for lowbar.some qualifier *)
+
+(some-finds-match: Lowbar Some Test) {
+    Create the <users> with [
+        { name: "Alice", role: "user" },
+        { name: "Bob", role: "admin" }
+    ].
+    Compute the <result: lowbar.some> from the <users> with { role: "admin" }.
+    Then the <result> with 1.
+}
+
+(some-no-match: Lowbar Some Test) {
+    Create the <users> with [
+        { name: "Alice", role: "user" },
+        { name: "Bob", role: "user" }
+    ].
+    Compute the <result: lowbar.some> from the <users> with { role: "admin" }.
+    Then the <result> with 0.
+}
+
+(some-truthy-without-props: Lowbar Some Test) {
+    Create the <items> with [0, false, "hello"].
+    Compute the <result: lowbar.some> from the <items>.
+    Then the <result> with 1.
+}

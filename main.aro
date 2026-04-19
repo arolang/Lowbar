@@ -1,0 +1,455 @@
+(* ================================================================
+   Lowbar — Underscore.js for ARO
+   ================================================================
+   Demonstrates all Lowbar qualifiers and actions.
+   The plugin provides 60+ utility functions inspired by underscore.js.
+   ================================================================ *)
+
+(Application-Start: Lowbar Demo) {
+
+    Log "========================================" to the <console>.
+    Log "  Lowbar — Underscore.js for ARO" to the <console>.
+    Log "========================================" to the <console>.
+
+    (* ---- Sample Data ---- *)
+    Create the <numbers> with [5, 3, 8, 1, 9, 2, 7, 4, 6].
+    Create the <names> with ["alice", "bob", "charlie", "dave", "eve"].
+    Create the <mixed> with [0, 1, "", "hello", false, true, 42].
+    Create the <nested> with [[1, 2], [3, [4, 5]], [6]].
+
+    Create the <users> with [
+        { name: "Alice", age: 30, role: "admin", active: true },
+        { name: "Bob", age: 25, role: "user", active: true },
+        { name: "Charlie", age: 35, role: "admin", active: false },
+        { name: "Dave", age: 28, role: "user", active: true },
+        { name: "Eve", age: 22, role: "user", active: false }
+    ].
+
+    Create the <config> with { host: "localhost", port: 8080 }.
+
+    (* ============================================================
+       COLLECTION QUALIFIERS
+       ============================================================ *)
+
+    Log "" to the <console>.
+    Log "--- Collection Basics ---" to the <console>.
+
+    (* first / last / rest / initial *)
+    Compute the <head: lowbar.first> from the <numbers>.
+    Log "first: " to the <console>.
+    Log <head> to the <console>.
+
+    Compute the <first-three: lowbar.first> from the <numbers> with { n: 3 }.
+    Log "first 3: " to the <console>.
+    Log <first-three> to the <console>.
+
+    Compute the <tail: lowbar.last> from the <numbers>.
+    Log "last: " to the <console>.
+    Log <tail> to the <console>.
+
+    Compute the <last-two: lowbar.last> from the <numbers> with { n: 2 }.
+    Log "last 2: " to the <console>.
+    Log <last-two> to the <console>.
+
+    Compute the <rest-of: lowbar.rest> from the <numbers>.
+    Log "rest: " to the <console>.
+    Log <rest-of> to the <console>.
+
+    Compute the <init-of: lowbar.initial> from the <numbers>.
+    Log "initial: " to the <console>.
+    Log <init-of> to the <console>.
+
+    (* compact *)
+    Compute the <truthy: lowbar.compact> from the <mixed>.
+    Log "compact: " to the <console>.
+    Log <truthy> to the <console>.
+
+    (* flatten *)
+    Compute the <flat: lowbar.flatten> from the <nested>.
+    Log "flatten: " to the <console>.
+    Log <flat> to the <console>.
+
+    (* uniq *)
+    Create the <dupes> with [1, 2, 2, 3, 3, 3, 4].
+    Compute the <unique: lowbar.uniq> from the <dupes>.
+    Log "uniq: " to the <console>.
+    Log <unique> to the <console>.
+
+    (* reverse *)
+    Compute the <backwards: lowbar.reverse> from the <numbers>.
+    Log "reverse: " to the <console>.
+    Log <backwards> to the <console>.
+
+    (* shuffle *)
+    Compute the <shuffled: lowbar.shuffle> from the <numbers>.
+    Log "shuffle: " to the <console>.
+    Log <shuffled> to the <console>.
+
+    (* sample *)
+    Compute the <picked: lowbar.sample> from the <names>.
+    Log "sample: " to the <console>.
+    Log <picked> to the <console>.
+
+    Compute the <three-picks: lowbar.sample> from the <names> with { n: 3 }.
+    Log "sample 3: " to the <console>.
+    Log <three-picks> to the <console>.
+
+    (* size *)
+    Compute the <count: lowbar.size> from the <numbers>.
+    Log "size: " to the <console>.
+    Log <count> to the <console>.
+
+    (* to-array *)
+    Compute the <chars: lowbar.toarray> from "Hello".
+    Log "to-array: " to the <console>.
+    Log <chars> to the <console>.
+
+    (* ============================================================
+       SET OPERATIONS
+       ============================================================ *)
+
+    Log "" to the <console>.
+    Log "--- Set Operations ---" to the <console>.
+
+    Create the <a> with [1, 2, 3, 4, 5].
+    Create the <b> with [3, 4, 5, 6, 7].
+
+    Compute the <united: lowbar.union> from the <a> with { other: [3, 4, 5, 6, 7] }.
+    Log "union: " to the <console>.
+    Log <united> to the <console>.
+
+    Compute the <common: lowbar.intersection> from the <a> with { other: [3, 4, 5, 6, 7] }.
+    Log "intersection: " to the <console>.
+    Log <common> to the <console>.
+
+    Compute the <diff: lowbar.difference> from the <a> with { other: [3, 4, 5, 6, 7] }.
+    Log "difference: " to the <console>.
+    Log <diff> to the <console>.
+
+    Compute the <stripped: lowbar.without> from the <a> with { values: [3, 5] }.
+    Log "without [3,5]: " to the <console>.
+    Log <stripped> to the <console>.
+
+    (* ============================================================
+       ZIP / UNZIP / CHUNK / OBJECT
+       ============================================================ *)
+
+    Log "" to the <console>.
+    Log "--- Zip / Chunk / Object ---" to the <console>.
+
+    Compute the <zipped: lowbar.zip> from ["a", "b", "c"] with { other: [1, 2, 3] }.
+    Log "zip: " to the <console>.
+    Log <zipped> to the <console>.
+
+    Compute the <unzipped: lowbar.unzip> from [["a", 1], ["b", 2], ["c", 3]].
+    Log "unzip: " to the <console>.
+    Log <unzipped> to the <console>.
+
+    Compute the <chunks: lowbar.chunk> from the <numbers> with { size: 3 }.
+    Log "chunk(3): " to the <console>.
+    Log <chunks> to the <console>.
+
+    Compute the <obj: lowbar.object> from [["name", "Alice"], ["age", 30]].
+    Log "object: " to the <console>.
+    Log <obj> to the <console>.
+
+    (* ============================================================
+       FIELD-BASED COLLECTION OPERATIONS
+       ============================================================ *)
+
+    Log "" to the <console>.
+    Log "--- Field-Based Operations ---" to the <console>.
+
+    (* pluck *)
+    Compute the <all-names: lowbar.pluck> from the <users> with { field: "name" }.
+    Log "pluck names: " to the <console>.
+    Log <all-names> to the <console>.
+
+    (* sort-by *)
+    Compute the <age-sorted: lowbar.sortby> from the <users> with { field: "age" }.
+    Compute the <sorted-names: lowbar.pluck> from the <age-sorted> with { field: "name" }.
+    Log "sort-by age: " to the <console>.
+    Log <sorted-names> to the <console>.
+
+    (* group-by *)
+    Compute the <role-groups: lowbar.groupby> from the <users> with { field: "role" }.
+    Log "group-by role: " to the <console>.
+    Log <role-groups> to the <console>.
+
+    (* count-by *)
+    Compute the <role-counts: lowbar.countby> from the <users> with { field: "role" }.
+    Log "count-by role: " to the <console>.
+    Log <role-counts> to the <console>.
+
+    (* index-by *)
+    Compute the <user-index: lowbar.indexby> from the <users> with { field: "name" }.
+    Log "index-by name (keys): " to the <console>.
+    Compute the <idx-keys: lowbar.keys> from the <user-index>.
+    Log <idx-keys> to the <console>.
+
+    (* where / find-where / reject-where *)
+    Compute the <admins: lowbar.matching> from the <users> with { role: "admin" }.
+    Compute the <admin-names: lowbar.pluck> from the <admins> with { field: "name" }.
+    Log "where role=admin: " to the <console>.
+    Log <admin-names> to the <console>.
+
+    Compute the <first-admin: lowbar.findwhere> from the <users> with { role: "admin" }.
+    Log "find-where role=admin: " to the <console>.
+    Log <first-admin> to the <console>.
+
+    Compute the <non-admins: lowbar.rejectwhere> from the <users> with { role: "admin" }.
+    Compute the <non-admin-names: lowbar.pluck> from the <non-admins> with { field: "name" }.
+    Log "reject-where role=admin: " to the <console>.
+    Log <non-admin-names> to the <console>.
+
+    (* partition *)
+    Compute the <split: lowbar.partition> from the <users> with { active: true }.
+    Log "partition active: " to the <console>.
+    Log <split> to the <console>.
+
+    (* max / min *)
+    Compute the <oldest: lowbar.max> from the <users> with { field: "age" }.
+    Log "max by age: " to the <console>.
+    Log <oldest> to the <console>.
+
+    Compute the <youngest: lowbar.min> from the <users> with { field: "age" }.
+    Log "min by age: " to the <console>.
+    Log <youngest> to the <console>.
+
+    Compute the <biggest: lowbar.max> from the <numbers>.
+    Log "max of numbers: " to the <console>.
+    Log <biggest> to the <console>.
+
+    (* contains / every / some *)
+    Compute the <has-three: lowbar.includes> from the <numbers> with { value: 3 }.
+    Log "contains 3: " to the <console>.
+    Log <has-three> to the <console>.
+
+    Compute the <all-active: lowbar.every> from the <users> with { active: true }.
+    Log "every active: " to the <console>.
+    Log <all-active> to the <console>.
+
+    Compute the <any-admin: lowbar.some> from the <users> with { role: "admin" }.
+    Log "some admin: " to the <console>.
+    Log <any-admin> to the <console>.
+
+    (* index-of / find-index *)
+    Compute the <idx: lowbar.indexof> from the <numbers> with { value: 8 }.
+    Log "index-of 8: " to the <console>.
+    Log <idx> to the <console>.
+
+    Compute the <admin-idx: lowbar.findindex> from the <users> with { role: "admin" }.
+    Log "find-index role=admin: " to the <console>.
+    Log <admin-idx> to the <console>.
+
+    (* ============================================================
+       NUMERIC
+       ============================================================ *)
+
+    Log "" to the <console>.
+    Log "--- Numeric ---" to the <console>.
+
+    Compute the <total: lowbar.sum> from the <numbers>.
+    Log "sum: " to the <console>.
+    Log <total> to the <console>.
+
+    Compute the <average: lowbar.avg> from the <numbers>.
+    Log "avg: " to the <console>.
+    Log <average> to the <console>.
+
+    Compute the <product: lowbar.reduce> from [1, 2, 3, 4, 5] with { op: "*" }.
+    Log "reduce *: " to the <console>.
+    Log <product> to the <console>.
+
+    Compute the <joined: lowbar.reduce> from the <names> with { op: "join", separator: " | " }.
+    Log "reduce join: " to the <console>.
+    Log <joined> to the <console>.
+
+    (* ============================================================
+       OBJECT QUALIFIERS
+       ============================================================ *)
+
+    Log "" to the <console>.
+    Log "--- Object Operations ---" to the <console>.
+
+    (* keys / values / pairs *)
+    Compute the <k: lowbar.keys> from the <config>.
+    Log "keys: " to the <console>.
+    Log <k> to the <console>.
+
+    Compute the <v: lowbar.values> from the <config>.
+    Log "values: " to the <console>.
+    Log <v> to the <console>.
+
+    Compute the <p: lowbar.pairs> from the <config>.
+    Log "pairs: " to the <console>.
+    Log <p> to the <console>.
+
+    (* invert *)
+    Create the <colors> with { red: "#ff0000", green: "#00ff00", blue: "#0000ff" }.
+    Compute the <inv: lowbar.invert> from the <colors>.
+    Log "invert: " to the <console>.
+    Log <inv> to the <console>.
+
+    (* pick / omit *)
+    Create the <user-record> with { name: "Alice", age: 30, email: "alice@example.com", password: "secret" }.
+    Compute the <public: lowbar.pick> from the <user-record> with { keys: ["name", "email"] }.
+    Log "pick: " to the <console>.
+    Log <public> to the <console>.
+
+    Compute the <safe: lowbar.omit> from the <user-record> with { keys: ["password"] }.
+    Log "omit: " to the <console>.
+    Log <safe> to the <console>.
+
+    (* defaults / extend *)
+    Compute the <full-config: lowbar.defaults> from the <config> with { timeout: 30, debug: false }.
+    Log "defaults: " to the <console>.
+    Log <full-config> to the <console>.
+
+    Compute the <merged: lowbar.extend> from the <config> with { port: 9090, debug: true }.
+    Log "extend: " to the <console>.
+    Log <merged> to the <console>.
+
+    (* has / get *)
+    Compute the <has-host: lowbar.has> from the <config> with { key: "host" }.
+    Log "has 'host': " to the <console>.
+    Log <has-host> to the <console>.
+
+    Create the <deep-obj> with { user: { address: { city: "Portland" } } }.
+    Compute the <city: lowbar.get> from the <deep-obj> with { path: "user.address.city" }.
+    Log "get 'user.address.city': " to the <console>.
+    Log <city> to the <console>.
+
+    Compute the <missing: lowbar.get> from the <deep-obj> with { path: "user.phone", default: "N/A" }.
+    Log "get with default: " to the <console>.
+    Log <missing> to the <console>.
+
+    (* is-match *)
+    Compute the <match-result: lowbar.ismatch> from the <config> with { host: "localhost" }.
+    Log "is-match host=localhost: " to the <console>.
+    Log <match-result> to the <console>.
+
+    (* find-key *)
+    Compute the <red-key: lowbar.findkey> from the <colors> with { value: "#ff0000" }.
+    Log "find-key #ff0000: " to the <console>.
+    Log <red-key> to the <console>.
+
+    (* clone *)
+    Compute the <copy: lowbar.clone> from the <config>.
+    Log "clone: " to the <console>.
+    Log <copy> to the <console>.
+
+    (* ============================================================
+       TYPE CHECKS
+       ============================================================ *)
+
+    Log "" to the <console>.
+    Log "--- Type Checks ---" to the <console>.
+
+    Compute the <chk-arr: lowbar.isarray> from the <numbers>.
+    Log "is-array [5,3,...]: " to the <console>.
+    Log <chk-arr> to the <console>.
+
+    Compute the <chk-str: lowbar.isstring> from "hello".
+    Log "is-string 'hello': " to the <console>.
+    Log <chk-str> to the <console>.
+
+    Compute the <chk-num: lowbar.isnumber> from 42.
+    Log "is-number 42: " to the <console>.
+    Log <chk-num> to the <console>.
+
+    Compute the <chk-bool: lowbar.isboolean> from true.
+    Log "is-boolean true: " to the <console>.
+    Log <chk-bool> to the <console>.
+
+    Compute the <chk-obj: lowbar.isobject> from the <config>.
+    Log "is-object config: " to the <console>.
+    Log <chk-obj> to the <console>.
+
+    Compute the <chk-blank: lowbar.isempty> from [].
+    Log "is-empty []: " to the <console>.
+    Log <chk-blank> to the <console>.
+
+    Compute the <chk-eq: lowbar.isequal> from 42 with { other: 42 }.
+    Log "is-equal 42 == 42: " to the <console>.
+    Log <chk-eq> to the <console>.
+
+    (* ============================================================
+       UTILITY QUALIFIERS
+       ============================================================ *)
+
+    Log "" to the <console>.
+    Log "--- Utilities ---" to the <console>.
+
+    (* escape / unescape *)
+    Compute the <escaped: lowbar.escape> from "<script>alert('xss')</script>".
+    Log "escape: " to the <console>.
+    Log <escaped> to the <console>.
+
+    Compute the <raw: lowbar.unescape> from "&lt;b&gt;bold&lt;/b&gt;".
+    Log "unescape: " to the <console>.
+    Log <raw> to the <console>.
+
+    (* join / split *)
+    Compute the <csv: lowbar.join> from the <names> with { separator: ", " }.
+    Log "join: " to the <console>.
+    Log <csv> to the <console>.
+
+    Compute the <parts: lowbar.split> from "one:two:three" with { separator: ":" }.
+    Log "split: " to the <console>.
+    Log <parts> to the <console>.
+
+    (* identity *)
+    Compute the <same: lowbar.identity> from 42.
+    Log "identity: " to the <console>.
+    Log <same> to the <console>.
+
+    (* ============================================================
+       ACTIONS
+       ============================================================ *)
+
+    Log "" to the <console>.
+    Log "--- Actions ---" to the <console>.
+
+    (* Range *)
+    Lowbar.Range the <range-ten> with { stop: 10 }.
+    Log "range(0..10): " to the <console>.
+    Log <range-ten> to the <console>.
+
+    Lowbar.Range the <evens> with { start: 0, stop: 10, step: 2 }.
+    Log "range(0..10, step 2): " to the <console>.
+    Log <evens> to the <console>.
+
+    Lowbar.Range the <countdown> with { start: 5, stop: 0 }.
+    Log "range(5..0): " to the <console>.
+    Log <countdown> to the <console>.
+
+    (* Random *)
+    Lowbar.Random the <dice> with { min: 1, max: 6 }.
+    Log "random(1..6): " to the <console>.
+    Log <dice> to the <console>.
+
+    (* UniqueId *)
+    Lowbar.UniqueId the <id1> with { prefix: "user_" }.
+    Lowbar.UniqueId the <id2> with { prefix: "user_" }.
+    Log "uniqueId: " to the <console>.
+    Log <id1> to the <console>.
+    Log <id2> to the <console>.
+
+    (* Now *)
+    Lowbar.Now the <timestamp> for the <system>.
+    Log "now: " to the <console>.
+    Log <timestamp> to the <console>.
+
+    (* Times *)
+    Lowbar.Times the <stars> with { n: 5, value: "*" }.
+    Log "times(5, '*'): " to the <console>.
+    Log <stars> to the <console>.
+
+    Log "" to the <console>.
+    Log "========================================" to the <console>.
+    Log "  All Lowbar demos completed!" to the <console>.
+    Log "========================================" to the <console>.
+
+    Return an <OK: status> for the <demo>.
+}

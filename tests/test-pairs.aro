@@ -1,0 +1,7 @@
+(* Tests for lowbar.pairs qualifier *)
+
+(pairs-convertsinto-entries: Lowbar Pairs Test) {
+    Create the <obj> with { a: 1, b: 2 }.
+    Compute the <result: lowbar.pairs> from the <obj>.
+    Then the <result> with [["a", 1], ["b", 2]].
+}

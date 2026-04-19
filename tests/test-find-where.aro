@@ -1,0 +1,12 @@
+(* Tests for lowbar.findwhere qualifier *)
+
+(find-match-returns-first-match: Lowbar FindMatch Test) {
+    Create the <users> with [
+        { name: "Alice", role: "admin" },
+        { name: "Bob", role: "user" },
+        { name: "Eve", role: "admin" }
+    ].
+    Compute the <result: lowbar.findwhere> from the <users> with { role: "admin" }.
+    Compute the <name: lowbar.get> from the <result> with { path: "name" }.
+    Then the <name> with "Alice".
+}

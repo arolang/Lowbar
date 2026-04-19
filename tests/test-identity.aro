@@ -1,0 +1,22 @@
+(* Tests for lowbar.identity qualifier *)
+
+(identity-returns-same-integer: Lowbar Identity Test) {
+    Compute the <result: lowbar.identity> from 42.
+    Then the <result> with 42.
+}
+
+(identity-returns-same-string: Lowbar Identity Test) {
+    Compute the <result: lowbar.identity> from "hello".
+    Then the <result> with "hello".
+}
+
+(identity-returns-same-list: Lowbar Identity Test) {
+    Create the <items> with [1, 2, 3].
+    Compute the <result: lowbar.identity> from the <items>.
+    Then the <result> with [1, 2, 3].
+}
+
+(identity-returns-same-boolean: Lowbar Identity Test) {
+    Compute the <result: lowbar.identity> from true.
+    Then the <result> with 1.
+}

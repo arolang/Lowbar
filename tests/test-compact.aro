@@ -1,0 +1,13 @@
+(* Tests for lowbar.compact qualifier *)
+
+(compact-removes-falsy-values: Lowbar Compact Test) {
+    Create the <items> with [0, 1, "", "hello", false, true, 42].
+    Compute the <result: lowbar.compact> from the <items>.
+    Then the <result> with [1, "hello", 1, 42].
+}
+
+(compact-all-truthy-returns-same: Lowbar Compact Test) {
+    Create the <items> with [1, "a", true].
+    Compute the <result: lowbar.compact> from the <items>.
+    Then the <result> with [1, "a", 1].
+}

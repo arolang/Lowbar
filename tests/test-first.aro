@@ -1,0 +1,25 @@
+(* Tests for lowbar.first qualifier *)
+
+(first-returns-first-element: Lowbar First Test) {
+    Create the <items> with [5, 3, 8, 1, 9].
+    Compute the <result: lowbar.first> from the <items>.
+    Then the <result> with 5.
+}
+
+(first-n-returns-first-n-elements: Lowbar First Test) {
+    Create the <items> with [5, 3, 8, 1, 9].
+    Compute the <result: lowbar.first> from the <items> with { n: 3 }.
+    Then the <result> with [5, 3, 8].
+}
+
+(first-n-one-returns-single-element-list: Lowbar First Test) {
+    Create the <items> with [10, 20, 30].
+    Compute the <result: lowbar.first> from the <items> with { n: 1 }.
+    Then the <result> with [10].
+}
+
+(first-n-exceeding-length: Lowbar First Test) {
+    Create the <items> with [1, 2].
+    Compute the <result: lowbar.first> from the <items> with { n: 5 }.
+    Then the <result> with [1, 2].
+}

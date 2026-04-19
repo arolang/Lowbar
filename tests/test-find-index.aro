@@ -1,0 +1,31 @@
+(* Tests for lowbar.findindex and lowbar.findlast-index qualifiers *)
+
+(find-index-returns-first-match: Lowbar FindIndex Test) {
+    Create the <users> with [
+        { name: "Alice", role: "admin" },
+        { name: "Bob", role: "user" },
+        { name: "Eve", role: "admin" }
+    ].
+    Compute the <result: lowbar.findindex> from the <users> with { role: "admin" }.
+    Then the <result> with 0.
+}
+
+(find-index-returns-negative-one: Lowbar FindIndex Test) {
+    Create the <users> with [
+        { name: "Alice", role: "user" },
+        { name: "Bob", role: "user" }
+    ].
+    Compute the <result: lowbar.findindex> from the <users> with { role: "admin" }.
+    Given the <expected> with -1.
+    Then the <result> with <expected>.
+}
+
+(find-last-index-returns-last-match: Lowbar FindIndex Test) {
+    Create the <users> with [
+        { name: "Alice", role: "admin" },
+        { name: "Bob", role: "user" },
+        { name: "Eve", role: "admin" }
+    ].
+    Compute the <result: lowbar.findlast-index> from the <users> with { role: "admin" }.
+    Then the <result> with 2.
+}

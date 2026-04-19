@@ -1,0 +1,14 @@
+(* Tests for lowbar.shuffle qualifier *)
+
+(shuffle-preserves-size: Lowbar Shuffle Test) {
+    Create the <items> with [1, 2, 3, 4, 5].
+    Compute the <result: lowbar.shuffle> from the <items>.
+    Compute the <result-size: lowbar.size> from the <result>.
+    Then the <result-size> with 5.
+}
+
+(shuffle-string-preserves-length: Lowbar Shuffle Test) {
+    Compute the <result: lowbar.shuffle> from "hello".
+    Compute the <len: lowbar.size> from the <result>.
+    Then the <len> with 5.
+}

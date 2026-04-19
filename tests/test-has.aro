@@ -1,0 +1,13 @@
+(* Tests for lowbar.has qualifier *)
+
+(has-returnstrue-existing-key: Lowbar Has Test) {
+    Create the <obj> with { name: "Alice", age: 30 }.
+    Compute the <result: lowbar.has> from the <obj> with { key: "name" }.
+    Then the <result> with 1.
+}
+
+(has-returnsfalse-missing-key: Lowbar Has Test) {
+    Create the <obj> with { name: "Alice" }.
+    Compute the <result: lowbar.has> from the <obj> with { key: "email" }.
+    Then the <result> with 0.
+}

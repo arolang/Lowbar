@@ -1,0 +1,10 @@
+(* Tests for lowbar.invert qualifier *)
+
+(invert-swaps-keys-values: Lowbar Invert Test) {
+    Create the <obj> with { red: "#ff0000", green: "#00ff00" }.
+    Compute the <result: lowbar.invert> from the <obj>.
+    Compute the <red-key: lowbar.get> from the <result> with { path: "#ff0000" }.
+    Then the <red-key> with "red".
+    Compute the <green-key: lowbar.get> from the <result> with { path: "#00ff00" }.
+    Then the <green-key> with "green".
+}

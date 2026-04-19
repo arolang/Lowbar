@@ -1,0 +1,14 @@
+(* Tests for lowbar.pick qualifier *)
+
+(pick-selects-keys: Lowbar Pick Test) {
+    Create the <user> with { name: "Alice", email: "a@b.com", password: "secret" }.
+    Compute the <result: lowbar.pick> from the <user> with { keys: ["name", "email"] }.
+    Compute the <count: lowbar.size> from the <result>.
+    Then the <count> with 2.
+    Compute the <name: lowbar.get> from the <result> with { path: "name" }.
+    Then the <name> with "Alice".
+    Compute the <email: lowbar.get> from the <result> with { path: "email" }.
+    Then the <email> with "a@b.com".
+    Compute the <has-password: lowbar.has> from the <result> with { key: "password" }.
+    Then the <has-password> with 0.
+}

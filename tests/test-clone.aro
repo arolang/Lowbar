@@ -1,0 +1,16 @@
+(* Tests for lowbar.clone qualifier *)
+
+(clone-copies-object: Lowbar Clone Test) {
+    Create the <obj> with { a: 1, b: 2 }.
+    Compute the <result: lowbar.clone> from the <obj>.
+    Compute the <a: lowbar.get> from the <result> with { path: "a" }.
+    Then the <a> with 1.
+    Compute the <count: lowbar.size> from the <result>.
+    Then the <count> with 2.
+}
+
+(clone-copies-list: Lowbar Clone Test) {
+    Create the <items> with [1, 2, 3].
+    Compute the <result: lowbar.clone> from the <items>.
+    Then the <result> with [1, 2, 3].
+}

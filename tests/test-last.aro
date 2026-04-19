@@ -1,0 +1,13 @@
+(* Tests for lowbar.last qualifier *)
+
+(last-returns-last-element: Lowbar Last Test) {
+    Create the <items> with [1, 2, 3, 4, 5].
+    Compute the <result: lowbar.last> from the <items>.
+    Then the <result> with 5.
+}
+
+(last-n-returns-last-n-elements: Lowbar Last Test) {
+    Create the <items> with [1, 2, 3, 4, 5].
+    Compute the <result: lowbar.last> from the <items> with { n: 2 }.
+    Then the <result> with [4, 5].
+}

@@ -1,0 +1,19 @@
+(* Tests for lowbar.rest qualifier *)
+
+(rest-drops-first-element: Lowbar Rest Test) {
+    Create the <items> with [1, 2, 3, 4, 5].
+    Compute the <result: lowbar.rest> from the <items>.
+    Then the <result> with [2, 3, 4, 5].
+}
+
+(rest-n-drops-first-n: Lowbar Rest Test) {
+    Create the <items> with [1, 2, 3, 4, 5].
+    Compute the <result: lowbar.rest> from the <items> with { n: 3 }.
+    Then the <result> with [4, 5].
+}
+
+(rest-n-exceeding-length-returns-blank: Lowbar Rest Test) {
+    Create the <items> with [1, 2].
+    Compute the <result: lowbar.rest> from the <items> with { n: 10 }.
+    Then the <result> with [].
+}

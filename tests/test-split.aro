@@ -1,0 +1,16 @@
+(* Tests for lowbar.split qualifier *)
+
+(splitvia-colon: Lowbar Split Test) {
+    Compute the <result: lowbar.split> from "one:two:three" with { separator: ":" }.
+    Then the <result> with ["one", "two", "three"].
+}
+
+(splitvia-comma: Lowbar Split Test) {
+    Compute the <result: lowbar.split> from "a,b,c" with { separator: "," }.
+    Then the <result> with ["a", "b", "c"].
+}
+
+(split-no-separator-found: Lowbar Split Test) {
+    Compute the <result: lowbar.split> from "hello" with { separator: ":" }.
+    Then the <result> with ["hello"].
+}

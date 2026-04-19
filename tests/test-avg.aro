@@ -1,0 +1,13 @@
+(* Tests for lowbar.avg qualifier *)
+
+(avg-computes-mean: Lowbar Avg Test) {
+    Create the <items> with [10, 20, 30].
+    Compute the <result: lowbar.avg> from the <items>.
+    Then the <result> with 20.0.
+}
+
+(avg-single-value: Lowbar Avg Test) {
+    Create the <items> with [42].
+    Compute the <result: lowbar.avg> from the <items>.
+    Then the <result> with 42.0.
+}

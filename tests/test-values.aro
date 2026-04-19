@@ -1,0 +1,15 @@
+(* Tests for lowbar.values qualifier *)
+
+(values-returns-values: Lowbar Values Test) {
+    Create the <obj> with { a: 1, b: 2, c: 3 }.
+    Compute the <result: lowbar.values> from the <obj>.
+    Compute the <count: lowbar.size> from the <result>.
+    Then the <count> with 3.
+    (* Values order is non-deterministic, so check via contains *)
+    Compute the <hasone: lowbar.includes> from the <result> with { value: 1 }.
+    Then the <hasone> with 1.
+    Compute the <hastwo: lowbar.includes> from the <result> with { value: 2 }.
+    Then the <hastwo> with 1.
+    Compute the <hasthree: lowbar.includes> from the <result> with { value: 3 }.
+    Then the <hasthree> with 1.
+}

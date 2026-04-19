@@ -1,0 +1,25 @@
+(* Tests for lowbar.get qualifier *)
+
+(get-shallow-path: Lowbar Get Test) {
+    Create the <obj> with { name: "Alice", age: 30 }.
+    Compute the <result: lowbar.get> from the <obj> with { path: "name" }.
+    Then the <result> with "Alice".
+}
+
+(get-nested-path: Lowbar Get Test) {
+    Create the <obj> with { user: { address: { city: "Portland" } } }.
+    Compute the <result: lowbar.get> from the <obj> with { path: "user.address.city" }.
+    Then the <result> with "Portland".
+}
+
+(get-default: Lowbar Get Test) {
+    Create the <obj> with { name: "Alice" }.
+    Compute the <result: lowbar.get> from the <obj> with { path: "phone", default: "N/A" }.
+    Then the <result> with "N/A".
+}
+
+(get-missing-returnsnil: Lowbar Get Test) {
+    Create the <obj> with { name: "Alice" }.
+    Compute the <result: lowbar.get> from the <obj> with { path: "missing" }.
+    Then the <result> with "nil".
+}

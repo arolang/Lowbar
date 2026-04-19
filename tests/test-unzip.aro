@@ -1,0 +1,12 @@
+(* Tests for lowbar.unzip qualifier *)
+
+(unzip-transposes-pairs: Lowbar Unzip Test) {
+    Create the <items> with [["a", 1], ["b", 2], ["c", 3]].
+    Compute the <result: lowbar.unzip> from the <items>.
+    Compute the <count: lowbar.size> from the <result>.
+    Then the <count> with 2.
+    Compute the <first-col: lowbar.first> from the <result>.
+    Then the <first-col> with ["a", "b", "c"].
+    Compute the <second-col: lowbar.last> from the <result>.
+    Then the <second-col> with [1, 2, 3].
+}

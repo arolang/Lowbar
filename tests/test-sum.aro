@@ -1,0 +1,19 @@
+(* Tests for lowbar.sum qualifier *)
+
+(sum-integers: Lowbar Sum Test) {
+    Create the <items> with [10, 20, 30].
+    Compute the <result: lowbar.sum> from the <items>.
+    Then the <result> with 60.
+}
+
+(sum-single: Lowbar Sum Test) {
+    Create the <items> with [42].
+    Compute the <result: lowbar.sum> from the <items>.
+    Then the <result> with 42.
+}
+
+(sum-blank: Lowbar Sum Test) {
+    Create the <items> with [].
+    Compute the <result: lowbar.sum> from the <items>.
+    Then the <result> with 0.
+}

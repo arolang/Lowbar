@@ -1,0 +1,19 @@
+(* Tests for lowbar.chunk qualifier *)
+
+(chunk-splits-evenly: Lowbar Chunk Test) {
+    Create the <items> with [1, 2, 3, 4, 5, 6].
+    Compute the <result: lowbar.chunk> from the <items> with { size: 2 }.
+    Then the <result> with [[1, 2], [3, 4], [5, 6]].
+}
+
+(chunk-remainder: Lowbar Chunk Test) {
+    Create the <items> with [1, 2, 3, 4, 5, 6, 7].
+    Compute the <result: lowbar.chunk> from the <items> with { size: 3 }.
+    Then the <result> with [[1, 2, 3], [4, 5, 6], [7]].
+}
+
+(chunk-size-one: Lowbar Chunk Test) {
+    Create the <items> with [1, 2, 3].
+    Compute the <result: lowbar.chunk> from the <items> with { size: 1 }.
+    Then the <result> with [[1], [2], [3]].
+}

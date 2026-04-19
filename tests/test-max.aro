@@ -1,0 +1,24 @@
+(* Tests for lowbar.max qualifier *)
+
+(max-numbers: Lowbar Max Test) {
+    Create the <items> with [5, 3, 8, 1, 9, 2].
+    Compute the <result: lowbar.max> from the <items>.
+    Then the <result> with 9.
+}
+
+(maxvia-field: Lowbar Max Test) {
+    Create the <users> with [
+        { name: "Alice", age: 30 },
+        { name: "Bob", age: 25 },
+        { name: "Eve", age: 35 }
+    ].
+    Compute the <result: lowbar.max> from the <users> with { field: "age" }.
+    Compute the <name: lowbar.get> from the <result> with { path: "name" }.
+    Then the <name> with "Eve".
+}
+
+(max-single-element: Lowbar Max Test) {
+    Create the <items> with [42].
+    Compute the <result: lowbar.max> from the <items>.
+    Then the <result> with 42.
+}
