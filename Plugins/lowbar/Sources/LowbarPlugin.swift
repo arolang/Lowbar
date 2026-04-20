@@ -1,6 +1,6 @@
 // ============================================================
 // LowbarPlugin.swift
-// Lowbar — Underscore.js for ARO
+// Lowbar — The utility toolkit for ARO
 // ============================================================
 //
 // A comprehensive utility plugin providing 60+ qualifiers and

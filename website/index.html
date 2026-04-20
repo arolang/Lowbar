@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lowbar &mdash; Underscore.js for ARO</title>
-  <meta name="description" content="76 utility qualifiers and actions for the ARO language. Collections, objects, type checks, and generators inspired by underscore.js.">
+  <title>Lowbar &mdash; The utility toolkit for ARO</title>
+  <meta name="description" content="Utility qualifiers and actions for the ARO language. Collections, objects, type checks, and generators.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,7 +15,7 @@
 <div id="sidebar">
   <div class="logo">
     <h1><a href="#">Lowbar</a></h1>
-    <p>Underscore.js for ARO<br>v1.0.0 &middot; 76 functions</p>
+    <p>The utility toolkit for ARO<br>v1.0.0</p>
   </div>
   <nav>
     <h3>Getting Started</h3>
@@ -129,10 +129,11 @@
 <!-- ---- Introduction ---- -->
 <h1 id="introduction">Lowbar</h1>
 <p class="tagline">
-  A comprehensive utility plugin for <a href="https://github.com/arolang/aro">ARO</a>,
-  inspired by the patterns of <a href="https://underscorejs.org">Underscore.js</a>.
-  76 qualifiers and actions for working with collections, objects, and values
+  A comprehensive utility plugin for <a href="https://github.com/arolang/aro">ARO</a>.
+  Qualifiers and actions for working with collections, objects, and values
   &mdash; expressed in plain language, not callbacks.
+  With thanks to the <a href="https://underscorejs.org">Underscore.js</a> community,
+  whose work inspired Lowbar's API design.
 </p>
 
 <div class="badges">
@@ -165,9 +166,15 @@
 <h2 id="installation">Installation</h2>
 
 <p>
-  Copy the <code>Plugins/lowbar/</code> directory into your ARO application's
-  <code>Plugins/</code> folder. ARO discovers and compiles the plugin automatically
-  on first run.
+  Add Lowbar to your ARO project with a single command:
+</p>
+
+<pre><code>aro add https://github.com/arolang/Lowbar.git</code></pre>
+
+<p>
+  Or copy the <code>Plugins/lowbar/</code> directory manually into your application's
+  <code>Plugins/</code> folder. Either way, ARO discovers and compiles the plugin
+  automatically on first run.
 </p>
 
 <div class="install-block">

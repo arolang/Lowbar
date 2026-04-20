@@ -1,5 +1,5 @@
 (* ================================================================
-   Lowbar — Underscore.js for ARO
+   Lowbar — The utility toolkit for ARO
    ================================================================
    Demonstrates all Lowbar qualifiers and actions.
    The plugin provides 60+ utility functions inspired by underscore.js.
@@ -8,7 +8,7 @@
 (Application-Start: Lowbar Demo) {
 
     Log "========================================" to the <console>.
-    Log "  Lowbar — Underscore.js for ARO" to the <console>.
+    Log "  Lowbar — The utility toolkit for ARO" to the <console>.
     Log "========================================" to the <console>.
 
     (* ---- Sample Data ---- *)

@@ -2,9 +2,8 @@ name: lowbar
 version: 1.0.0
 handle: Lowbar
 description: >
-  Underscore.js for ARO — a comprehensive utility plugin providing 60+ collection,
-  array, object, and utility qualifiers plus generator actions, modeled after
-  the beloved underscore.js library.
+  The utility toolkit for ARO — a comprehensive plugin providing 60+ collection,
+  array, object, and utility qualifiers plus generator actions.
 author: ARO Community
 license: MIT
 aro-version: '>=0.9.1'
