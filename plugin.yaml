@@ -1,0 +1,20 @@
+name: lowbar
+version: 1.0.0
+handle: Lowbar
+description: >
+  The utility toolkit for ARO — a comprehensive plugin providing 60+ collection,
+  array, object, and utility qualifiers plus generator actions.
+author: ARO Community
+license: MIT
+aro-version: '>=0.9.1'
+
+provides:
+  - type: swift-plugin
+    path: Sources/
+
+build:
+  swift:
+    minimum-version: '6.2'
+    targets:
+      - name: LowbarPlugin
+        path: Sources/
