@@ -107,12 +107,14 @@ private func resolveNestedPath(_ dict: [String: Any], _ path: String) -> Any? {
     return current
 }
 
-private nonisolated(unsafe) var _uniqueIdCounter = 0
+private func generateUniqueId() -> String {
+    UUID().uuidString.lowercased().replacingOccurrences(of: "-", with: "")
+}
 
 // MARK: - Plugin Registration
 
 @AROExport
-private let plugin = AROPlugin(name: "lowbar", version: "1.0.0", handle: "Lowbar")
+private let plugin = AROPlugin(name: "lowbar", version: "0.2.0", handle: "Lowbar")
 
     // ================================================================
     // MARK: — Collection Qualifiers
@@ -1042,9 +1044,9 @@ private let plugin = AROPlugin(name: "lowbar", version: "1.0.0", handle: "Lowbar
     // Lowbar.UniqueId the <id> for the <session>.
     .action("UniqueId", verbs: ["uniqueid", "unique-id"], role: "own", prepositions: ["with", "for"],
             description: "Generate a unique ID; optionally with { prefix }") { input in
-        _uniqueIdCounter += 1
         let prefix = input.with.string("prefix") ?? ""
-        return .success(["data": "\(prefix)\(_uniqueIdCounter)"])
+        let id = generateUniqueId()
+        return .success(["data": "\(prefix)\(id)"])
     }
 
     // --- Now ---
