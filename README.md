@@ -25,7 +25,7 @@ Compute the <youngest: lowbar.first> from the <sorted>.
 ### With the ARO package manager
 
 ```bash
-aro add lowbar
+aro add https://github.com/arolang/Lowbar.git
 ```
 
 ### Manual
